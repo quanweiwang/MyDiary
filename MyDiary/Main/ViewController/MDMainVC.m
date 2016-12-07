@@ -7,7 +7,7 @@
 //
 
 #import "MDMainVC.h"
-#import "MDMemoVC.h"
+#import "MDDiaryMainVC.h"
 
 @interface MDMainVC ()<UITableViewDelegate,UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UITableView *table;
@@ -96,7 +96,7 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    MDMemoVC * vc = [sb instantiateViewControllerWithIdentifier:@"MDMemoVC"];
+    MDDiaryMainVC * vc = [sb instantiateViewControllerWithIdentifier:@"MDDiaryMainVC"];
     [self.navigationController pushViewController:vc animated:YES];
     
     

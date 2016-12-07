@@ -7,6 +7,7 @@
 //
 
 #import "MDAppDelegate.h"
+#import "MDTheme.h"
 
 @interface MDAppDelegate ()
 
@@ -19,7 +20,7 @@
     // Override point for customization after application launch.
     
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
-    [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithRed:103/255.0 green:181/255.0 blue:230/255.0 alpha:1]];
+    [[UINavigationBar appearance] setBarTintColor:[MDTheme themeColor]];
     [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
     [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
     

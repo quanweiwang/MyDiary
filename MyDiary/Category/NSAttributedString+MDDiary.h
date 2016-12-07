@@ -17,7 +17,7 @@
  *
  *  @return 返回 富文本
  */
-+(NSMutableAttributedString *) strikethrough:(NSString *)str;
+//+(NSMutableAttributedString *) strikethrough:(NSString *)str;
 
 
 @end
