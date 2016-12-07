@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  MDAppDelegate.H
 //  MyDiary
 //
 //  Created by 王权伟 on 2016/12/7.
@@ -8,7 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
+@interface MDAppDelegate : UIResponder <UIApplicationDelegate>
+
+@property (strong, nonatomic) UIWindow *window;
 
 
 @end

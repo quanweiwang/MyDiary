@@ -8,13 +8,17 @@
 
 /* Begin PBXBuildFile section */
 		D6C372271DF7B11C00C8C544 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D6C372261DF7B11C00C8C544 /* main.m */; };
-		D6C3722A1DF7B11C00C8C544 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D6C372291DF7B11C00C8C544 /* AppDelegate.m */; };
-		D6C3722D1DF7B11C00C8C544 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6C3722C1DF7B11C00C8C544 /* ViewController.m */; };
+		D6C3722A1DF7B11C00C8C544 /* MDAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D6C372291DF7B11C00C8C544 /* MDAppDelegate.m */; };
 		D6C372301DF7B11C00C8C544 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D6C3722E1DF7B11C00C8C544 /* Main.storyboard */; };
 		D6C372321DF7B11C00C8C544 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D6C372311DF7B11C00C8C544 /* Assets.xcassets */; };
 		D6C372351DF7B11C00C8C544 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D6C372331DF7B11C00C8C544 /* LaunchScreen.storyboard */; };
 		D6C372401DF7B11C00C8C544 /* MyDiaryTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D6C3723F1DF7B11C00C8C544 /* MyDiaryTests.m */; };
 		D6C3724B1DF7B11C00C8C544 /* MyDiaryUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = D6C3724A1DF7B11C00C8C544 /* MyDiaryUITests.m */; };
+		D6C372631DF7B2CB00C8C544 /* MDMainVC.m in Sources */ = {isa = PBXBuildFile; fileRef = D6C372621DF7B2CB00C8C544 /* MDMainVC.m */; };
+		D6C372701DF7DFB500C8C544 /* BaseTableVC.m in Sources */ = {isa = PBXBuildFile; fileRef = D6C3726F1DF7DFB500C8C544 /* BaseTableVC.m */; };
+		D6C372741DF7E50000C8C544 /* MDMemoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = D6C372731DF7E50000C8C544 /* MDMemoVC.m */; };
+		D6C372831DF7F16600C8C544 /* MDMemoMdl.m in Sources */ = {isa = PBXBuildFile; fileRef = D6C372821DF7F16600C8C544 /* MDMemoMdl.m */; };
+		D6C372861DF7F7C600C8C544 /* NSAttributedString+MDDiary.m in Sources */ = {isa = PBXBuildFile; fileRef = D6C372851DF7F7C600C8C544 /* NSAttributedString+MDDiary.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,10 +41,8 @@
 /* Begin PBXFileReference section */
 		D6C372221DF7B11C00C8C544 /* MyDiary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyDiary.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D6C372261DF7B11C00C8C544 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		D6C372281DF7B11C00C8C544 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		D6C372291DF7B11C00C8C544 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		D6C3722B1DF7B11C00C8C544 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		D6C3722C1DF7B11C00C8C544 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		D6C372281DF7B11C00C8C544 /* MDAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MDAppDelegate.h; sourceTree = "<group>"; };
+		D6C372291DF7B11C00C8C544 /* MDAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MDAppDelegate.m; sourceTree = "<group>"; };
 		D6C3722F1DF7B11C00C8C544 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D6C372311DF7B11C00C8C544 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D6C372341DF7B11C00C8C544 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -51,6 +53,16 @@
 		D6C372461DF7B11C00C8C544 /* MyDiaryUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MyDiaryUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D6C3724A1DF7B11C00C8C544 /* MyDiaryUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyDiaryUITests.m; sourceTree = "<group>"; };
 		D6C3724C1DF7B11C00C8C544 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D6C372611DF7B2CB00C8C544 /* MDMainVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDMainVC.h; path = Main/ViewController/MDMainVC.h; sourceTree = "<group>"; };
+		D6C372621DF7B2CB00C8C544 /* MDMainVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDMainVC.m; path = Main/ViewController/MDMainVC.m; sourceTree = "<group>"; };
+		D6C3726E1DF7DFB500C8C544 /* BaseTableVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BaseTableVC.h; path = BaseClass/BaseTableVC.h; sourceTree = "<group>"; };
+		D6C3726F1DF7DFB500C8C544 /* BaseTableVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BaseTableVC.m; path = BaseClass/BaseTableVC.m; sourceTree = "<group>"; };
+		D6C372721DF7E50000C8C544 /* MDMemoVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDMemoVC.h; path = Memo/ViewController/MDMemoVC.h; sourceTree = "<group>"; };
+		D6C372731DF7E50000C8C544 /* MDMemoVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDMemoVC.m; path = Memo/ViewController/MDMemoVC.m; sourceTree = "<group>"; };
+		D6C372811DF7F16600C8C544 /* MDMemoMdl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDMemoMdl.h; path = Memo/Model/MDMemoMdl.h; sourceTree = "<group>"; };
+		D6C372821DF7F16600C8C544 /* MDMemoMdl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDMemoMdl.m; path = Memo/Model/MDMemoMdl.m; sourceTree = "<group>"; };
+		D6C372841DF7F7C600C8C544 /* NSAttributedString+MDDiary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSAttributedString+MDDiary.h"; path = "Category/NSAttributedString+MDDiary.h"; sourceTree = "<group>"; };
+		D6C372851DF7F7C600C8C544 /* NSAttributedString+MDDiary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSAttributedString+MDDiary.m"; path = "Category/NSAttributedString+MDDiary.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,10 +113,15 @@
 		D6C372241DF7B11C00C8C544 /* MyDiary */ = {
 			isa = PBXGroup;
 			children = (
-				D6C372281DF7B11C00C8C544 /* AppDelegate.h */,
-				D6C372291DF7B11C00C8C544 /* AppDelegate.m */,
-				D6C3722B1DF7B11C00C8C544 /* ViewController.h */,
-				D6C3722C1DF7B11C00C8C544 /* ViewController.m */,
+				D6C372281DF7B11C00C8C544 /* MDAppDelegate.h */,
+				D6C372291DF7B11C00C8C544 /* MDAppDelegate.m */,
+				D6C3726A1DF7DF5C00C8C544 /* BaseClass */,
+				D6C372661DF7BF2600C8C544 /* Theme */,
+				D6C372641DF7B2EE00C8C544 /* Category */,
+				D6C372711DF7E43100C8C544 /* Diary */,
+				D6C3725A1DF7B21800C8C544 /* Memo */,
+				D6C372591DF7B21000C8C544 /* Contacts */,
+				D6C372581DF7B20A00C8C544 /* Main */,
 				D6C3722E1DF7B11C00C8C544 /* Main.storyboard */,
 				D6C372311DF7B11C00C8C544 /* Assets.xcassets */,
 				D6C372331DF7B11C00C8C544 /* LaunchScreen.storyboard */,
@@ -138,6 +155,113 @@
 				D6C3724C1DF7B11C00C8C544 /* Info.plist */,
 			);
 			path = MyDiaryUITests;
+			sourceTree = "<group>";
+		};
+		D6C372581DF7B20A00C8C544 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				D6C372601DF7B2A500C8C544 /* Model */,
+				D6C3725F1DF7B2A000C8C544 /* View */,
+				D6C3725E1DF7B29700C8C544 /* ViewController */,
+			);
+			name = Main;
+			sourceTree = "<group>";
+		};
+		D6C372591DF7B21000C8C544 /* Contacts */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Contacts;
+			sourceTree = "<group>";
+		};
+		D6C3725A1DF7B21800C8C544 /* Memo */ = {
+			isa = PBXGroup;
+			children = (
+				D6C372801DF7F13800C8C544 /* Model */,
+				D6C3727F1DF7F13300C8C544 /* View */,
+				D6C3727E1DF7F12700C8C544 /* ControllerView */,
+			);
+			name = Memo;
+			sourceTree = "<group>";
+		};
+		D6C3725E1DF7B29700C8C544 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				D6C372611DF7B2CB00C8C544 /* MDMainVC.h */,
+				D6C372621DF7B2CB00C8C544 /* MDMainVC.m */,
+			);
+			name = ViewController;
+			sourceTree = "<group>";
+		};
+		D6C3725F1DF7B2A000C8C544 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		D6C372601DF7B2A500C8C544 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		D6C372641DF7B2EE00C8C544 /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				D6C372841DF7F7C600C8C544 /* NSAttributedString+MDDiary.h */,
+				D6C372851DF7F7C600C8C544 /* NSAttributedString+MDDiary.m */,
+			);
+			name = Category;
+			sourceTree = "<group>";
+		};
+		D6C372661DF7BF2600C8C544 /* Theme */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Theme;
+			sourceTree = "<group>";
+		};
+		D6C3726A1DF7DF5C00C8C544 /* BaseClass */ = {
+			isa = PBXGroup;
+			children = (
+				D6C3726E1DF7DFB500C8C544 /* BaseTableVC.h */,
+				D6C3726F1DF7DFB500C8C544 /* BaseTableVC.m */,
+			);
+			name = BaseClass;
+			sourceTree = "<group>";
+		};
+		D6C372711DF7E43100C8C544 /* Diary */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Diary;
+			sourceTree = "<group>";
+		};
+		D6C3727E1DF7F12700C8C544 /* ControllerView */ = {
+			isa = PBXGroup;
+			children = (
+				D6C372721DF7E50000C8C544 /* MDMemoVC.h */,
+				D6C372731DF7E50000C8C544 /* MDMemoVC.m */,
+			);
+			name = ControllerView;
+			sourceTree = "<group>";
+		};
+		D6C3727F1DF7F13300C8C544 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		D6C372801DF7F13800C8C544 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				D6C372811DF7F16600C8C544 /* MDMemoMdl.h */,
+				D6C372821DF7F16600C8C544 /* MDMemoMdl.m */,
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -202,6 +326,7 @@
 		D6C3721A1DF7B11C00C8C544 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				CLASSPREFIX = MD;
 				LastUpgradeCheck = 0810;
 				ORGANIZATIONNAME = wangquanwei;
 				TargetAttributes = {
@@ -276,9 +401,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D6C3722D1DF7B11C00C8C544 /* ViewController.m in Sources */,
-				D6C3722A1DF7B11C00C8C544 /* AppDelegate.m in Sources */,
+				D6C372861DF7F7C600C8C544 /* NSAttributedString+MDDiary.m in Sources */,
+				D6C3722A1DF7B11C00C8C544 /* MDAppDelegate.m in Sources */,
+				D6C372741DF7E50000C8C544 /* MDMemoVC.m in Sources */,
+				D6C372631DF7B2CB00C8C544 /* MDMainVC.m in Sources */,
 				D6C372271DF7B11C00C8C544 /* main.m in Sources */,
+				D6C372701DF7DFB500C8C544 /* BaseTableVC.m in Sources */,
+				D6C372831DF7F16600C8C544 /* MDMemoMdl.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -427,6 +556,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 89BZ957YW3;
 				INFOPLIST_FILE = MyDiary/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.wangquanwei.MyDiary;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -439,6 +569,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 89BZ957YW3;
 				INFOPLIST_FILE = MyDiary/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.wangquanwei.MyDiary;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -514,6 +645,7 @@
 				D6C372511DF7B11C00C8C544 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		D6C372521DF7B11C00C8C544 /* Build configuration list for PBXNativeTarget "MyDiaryTests" */ = {
 			isa = XCConfigurationList;
@@ -522,6 +654,7 @@
 				D6C372541DF7B11C00C8C544 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		D6C372551DF7B11C00C8C544 /* Build configuration list for PBXNativeTarget "MyDiaryUITests" */ = {
 			isa = XCConfigurationList;
@@ -530,6 +663,7 @@
 				D6C372571DF7B11C00C8C544 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -1,22 +1,28 @@
 //
-//  AppDelegate.m
+//  MDAppDelegate.m
 //  MyDiary
 //
 //  Created by 王权伟 on 2016/12/7.
 //  Copyright © 2016年 wangquanwei. All rights reserved.
 //
 
-#import "AppDelegate.h"
+#import "MDAppDelegate.h"
 
-@interface AppDelegate ()
+@interface MDAppDelegate ()
 
 @end
 
-@implementation AppDelegate
+@implementation MDAppDelegate
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
+    [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithRed:103/255.0 green:181/255.0 blue:230/255.0 alpha:1]];
+    [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
+    [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
+    
     return YES;
 }
 
