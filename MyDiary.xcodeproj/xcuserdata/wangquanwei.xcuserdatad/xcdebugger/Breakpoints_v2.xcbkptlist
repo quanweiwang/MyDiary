@@ -16,6 +16,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "20"
             endingLineNumber = "20"
+<<<<<<< Updated upstream
 =======
             timestampString = "502797403.862993"
             startingColumnNumber = "9223372036854775807"
@@ -25,6 +26,10 @@
 >>>>>>> Stashed changes
             landmarkName = "+strikethrough:"
             landmarkType = "7">
+=======
+            landmarkName = "@implementation NSAttributedString(MDDiary)"
+            landmarkType = "3">
+>>>>>>> Stashed changes
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
