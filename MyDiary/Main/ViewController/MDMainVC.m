@@ -8,6 +8,7 @@
 
 #import "MDMainVC.h"
 #import "MDDiaryMainVC.h"
+#import "MDTheme.h"
 
 @interface MDMainVC ()<UITableViewDelegate,UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UITableView *table;
@@ -27,6 +28,20 @@
     
     //头像按钮点击事件
     [self.headBtn addTarget:self action:@selector(headBtn:) forControlEvents:UIControlEventTouchUpInside];
+    
+    //设置按钮
+    self.settingBtn.tintColor = [MDTheme themeColor];
+    [self.settingBtn setImage:[[UIImage imageNamed:@"ic_settings_white_36dp"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] forState:UIControlStateNormal];
+    
+    //输入框
+    UIImageView * leftView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 28, 18)];
+    leftView.image = [UIImage imageNamed:@"ic_search_white_18dp"];
+    leftView.contentMode = UIViewContentModeCenter;
+
+    self.searchTextField.backgroundColor = [MDTheme themeColor];
+    self.searchTextField.leftView = leftView;
+    self.searchTextField.leftViewMode=UITextFieldViewModeAlways;
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -64,7 +79,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     
-    return 1;
+    return 2;
 }
 
 //每行高
@@ -95,12 +110,51 @@
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    MDDiaryMainVC * vc = [sb instantiateViewControllerWithIdentifier:@"MDDiaryMainVC"];
-    [self.navigationController pushViewController:vc animated:YES];
+    if (indexPath.row == 0 ){
+        
+        UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        MDDiaryMainVC * vc = [sb instantiateViewControllerWithIdentifier:@"MDDiaryMainVC"];
+        [self.navigationController pushViewController:vc animated:YES];
+
+    }
+    else{
+        
+        UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        MDDiaryMainVC * vc = [sb instantiateViewControllerWithIdentifier:@"MDMemoVC"];
+        [self.navigationController pushViewController:vc animated:YES];
+
+    }
     
     
 }
 
+- (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    //删除
+    UITableViewRowAction * deleAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:@"删除" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
+        
+        NSLog(@"删除");
+    }];
+    
+    //编辑
+    UITableViewRowAction * editAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDefault title:@"编辑" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
+        //事件
+        NSLog(@"编辑");
+    }];
+    
+    deleAction.backgroundColor = [UIColor redColor];
+    editAction.backgroundColor = [UIColor orangeColor];
+    return @[deleAction,editAction];
+}
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    return YES;
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    NSLog(@"%@", indexPath);
+}
 
 @end

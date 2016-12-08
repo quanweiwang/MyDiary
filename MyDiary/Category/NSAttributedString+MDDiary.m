@@ -20,4 +20,12 @@
 //    return attributedString;
 //}
 
++(NSMutableAttributedString *) strikethrough:(NSString *)str{
+
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:str attributes:@ {@"NSStrikethroughStyleAttributeName": @1}];
+    
+    return attributedString;
+}
+
+
 @end

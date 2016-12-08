@@ -24,6 +24,58 @@
     [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
     [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
     
+    //启动页放大效果 仿Twitter
+    //获取rootView
+    UIView * launchView = self.window.rootViewController.view;
+    
+    //给RootView 添加蒙版
+    CALayer * launchLayer = [CALayer layer];
+    launchLayer.bounds = CGRectMake(0, 0, 100, 100);
+    launchLayer.position = launchView.center;
+    launchLayer.contents = (__bridge id _Nullable)([UIImage imageNamed:@"logo"].CGImage);
+    launchView.layer.mask = launchLayer;
+    
+    //创建遮挡视图并添加到rootView
+    UIView * shelterView = [[UIView alloc] initWithFrame:launchView.frame];
+    shelterView.backgroundColor = [UIColor whiteColor];
+    [launchView addSubview:shelterView];
+    
+    self.window.backgroundColor = [MDTheme themeColor];
+    
+    CAKeyframeAnimation * logoAnimation = [[CAKeyframeAnimation alloc] init];
+    logoAnimation.keyPath = @"bounds";
+    logoAnimation.beginTime = CACurrentMediaTime() + 1;
+    logoAnimation.duration = 1;
+    logoAnimation.keyTimes = @[@0, @0.4, @1];
+    logoAnimation.values = @[[NSValue valueWithCGRect:CGRectMake(0, 0, 100, 100)],
+                             [NSValue valueWithCGRect:CGRectMake(0, 0, 85, 85)],
+                             [NSValue valueWithCGRect:CGRectMake(0, 0, 4500, 4500)]];
+    logoAnimation.timingFunctions = @[[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut],
+                                      [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionDefault]];
+    [logoAnimation setRemovedOnCompletion:NO];
+    logoAnimation.fillMode = kCAFillModeForwards;
+    [launchLayer addAnimation:logoAnimation forKey:@"zoomAnimation"];
+    
+    CAKeyframeAnimation * mainViewAnimation = [[CAKeyframeAnimation alloc] init];
+    mainViewAnimation.keyPath = @"transform";
+    mainViewAnimation.beginTime = CACurrentMediaTime() + 1.1;
+    mainViewAnimation.duration = 0.6;
+    mainViewAnimation.keyTimes = @[@0, @0.5, @1];
+    mainViewAnimation.values = @[[NSValue valueWithCATransform3D:CATransform3DIdentity],
+                                 [NSValue valueWithCATransform3D:CATransform3DScale(CATransform3DIdentity, 1.1, 1.1, 1)],
+                                 [NSValue valueWithCATransform3D:CATransform3DIdentity]];
+
+    [launchView.layer addAnimation:mainViewAnimation forKey:@"transformAnimation"];
+    launchView.layer.transform = CATransform3DIdentity;
+    
+    [UIView animateWithDuration:0.3 delay:1.4 options:UIViewAnimationOptionCurveLinear animations:^{
+        shelterView.alpha = 0;
+    } completion:^(BOOL finished) {
+        [shelterView removeFromSuperview];
+        launchView.layer.mask = nil;
+    }];
+
+    
     return YES;
 }
 
