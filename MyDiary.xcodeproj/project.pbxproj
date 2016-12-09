@@ -24,7 +24,9 @@
 		D6C372701DF7DFB500C8C544 /* BaseTableVC.m in Sources */ = {isa = PBXBuildFile; fileRef = D6C3726F1DF7DFB500C8C544 /* BaseTableVC.m */; };
 		D6C372741DF7E50000C8C544 /* MDMemoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = D6C372731DF7E50000C8C544 /* MDMemoVC.m */; };
 		D6C372831DF7F16600C8C544 /* MDMemoMdl.m in Sources */ = {isa = PBXBuildFile; fileRef = D6C372821DF7F16600C8C544 /* MDMemoMdl.m */; };
-		D6C372861DF7F7C600C8C544 /* NSAttributedString+MDDiary.m in Sources */ = {isa = PBXBuildFile; fileRef = D6C372851DF7F7C600C8C544 /* NSAttributedString+MDDiary.m */; };
+		D6E3EC531DFA3D4200188A4D /* MDEditUserProfileVC.m in Sources */ = {isa = PBXBuildFile; fileRef = D6E3EC521DFA3D4200188A4D /* MDEditUserProfileVC.m */; };
+		D6E3EC571DFA9E0C00188A4D /* UIImage+MyDiary.m in Sources */ = {isa = PBXBuildFile; fileRef = D6E3EC561DFA9E0C00188A4D /* UIImage+MyDiary.m */; };
+		D6E3EC5A1DFAA41300188A4D /* BaseNav.m in Sources */ = {isa = PBXBuildFile; fileRef = D6E3EC591DFAA41300188A4D /* BaseNav.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -80,8 +82,12 @@
 		D6C372731DF7E50000C8C544 /* MDMemoVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDMemoVC.m; path = Memo/ViewController/MDMemoVC.m; sourceTree = "<group>"; };
 		D6C372811DF7F16600C8C544 /* MDMemoMdl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDMemoMdl.h; path = Memo/Model/MDMemoMdl.h; sourceTree = "<group>"; };
 		D6C372821DF7F16600C8C544 /* MDMemoMdl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDMemoMdl.m; path = Memo/Model/MDMemoMdl.m; sourceTree = "<group>"; };
-		D6C372841DF7F7C600C8C544 /* NSAttributedString+MDDiary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSAttributedString+MDDiary.h"; path = "Category/NSAttributedString+MDDiary.h"; sourceTree = "<group>"; };
-		D6C372851DF7F7C600C8C544 /* NSAttributedString+MDDiary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSAttributedString+MDDiary.m"; path = "Category/NSAttributedString+MDDiary.m"; sourceTree = "<group>"; };
+		D6E3EC511DFA3D4200188A4D /* MDEditUserProfileVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDEditUserProfileVC.h; path = Main/ViewController/MDEditUserProfileVC.h; sourceTree = "<group>"; };
+		D6E3EC521DFA3D4200188A4D /* MDEditUserProfileVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDEditUserProfileVC.m; path = Main/ViewController/MDEditUserProfileVC.m; sourceTree = "<group>"; };
+		D6E3EC551DFA9E0C00188A4D /* UIImage+MyDiary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImage+MyDiary.h"; path = "Category/UIImage+MyDiary.h"; sourceTree = "<group>"; };
+		D6E3EC561DFA9E0C00188A4D /* UIImage+MyDiary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImage+MyDiary.m"; path = "Category/UIImage+MyDiary.m"; sourceTree = "<group>"; };
+		D6E3EC581DFAA41300188A4D /* BaseNav.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseNav.h; sourceTree = "<group>"; };
+		D6E3EC591DFAA41300188A4D /* BaseNav.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseNav.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -257,6 +263,8 @@
 			children = (
 				D6C372611DF7B2CB00C8C544 /* MDMainVC.h */,
 				D6C372621DF7B2CB00C8C544 /* MDMainVC.m */,
+				D6E3EC511DFA3D4200188A4D /* MDEditUserProfileVC.h */,
+				D6E3EC521DFA3D4200188A4D /* MDEditUserProfileVC.m */,
 			);
 			name = ViewController;
 			sourceTree = "<group>";
@@ -278,8 +286,8 @@
 		D6C372641DF7B2EE00C8C544 /* Category */ = {
 			isa = PBXGroup;
 			children = (
-				D6C372841DF7F7C600C8C544 /* NSAttributedString+MDDiary.h */,
-				D6C372851DF7F7C600C8C544 /* NSAttributedString+MDDiary.m */,
+				D6E3EC551DFA9E0C00188A4D /* UIImage+MyDiary.h */,
+				D6E3EC561DFA9E0C00188A4D /* UIImage+MyDiary.m */,
 			);
 			name = Category;
 			sourceTree = "<group>";
@@ -296,6 +304,8 @@
 		D6C3726A1DF7DF5C00C8C544 /* BaseClass */ = {
 			isa = PBXGroup;
 			children = (
+				D6E3EC581DFAA41300188A4D /* BaseNav.h */,
+				D6E3EC591DFAA41300188A4D /* BaseNav.m */,
 				D6C3726E1DF7DFB500C8C544 /* BaseTableVC.h */,
 				D6C3726F1DF7DFB500C8C544 /* BaseTableVC.m */,
 			);
@@ -526,16 +536,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				D6490D751DF844770068BE61 /* MDTheme.m in Sources */,
-				D6C372861DF7F7C600C8C544 /* NSAttributedString+MDDiary.m in Sources */,
+				D6E3EC571DFA9E0C00188A4D /* UIImage+MyDiary.m in Sources */,
 				D6C3722A1DF7B11C00C8C544 /* MDAppDelegate.m in Sources */,
 				D6C372741DF7E50000C8C544 /* MDMemoVC.m in Sources */,
 				D6C372631DF7B2CB00C8C544 /* MDMainVC.m in Sources */,
+				D6E3EC531DFA3D4200188A4D /* MDEditUserProfileVC.m in Sources */,
 				D6490D841DF853930068BE61 /* MDCalendarVC.m in Sources */,
 				D6490D7E1DF850540068BE61 /* MDDiaryMainVC.m in Sources */,
 				D6490D811DF853730068BE61 /* MDEntriesVC.m in Sources */,
 				D6C372271DF7B11C00C8C544 /* main.m in Sources */,
 				D6490D871DF853AB0068BE61 /* MDDiaryVC.m in Sources */,
 				D6C372701DF7DFB500C8C544 /* BaseTableVC.m in Sources */,
+				D6E3EC5A1DFAA41300188A4D /* BaseNav.m in Sources */,
 				D6C372831DF7F16600C8C544 /* MDMemoMdl.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

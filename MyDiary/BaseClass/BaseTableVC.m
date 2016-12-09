@@ -9,7 +9,7 @@
 #import "BaseTableVC.h"
 
 @interface BaseTableVC ()
-
+@property (strong, nonatomic) UIBarButtonItem * navBackBtn;
 @end
 
 @implementation BaseTableVC
@@ -17,6 +17,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    if (self.navigationController.childViewControllers.count>1) {
+        self.navBackBtn = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"pk_back_btn"] style:UIBarButtonItemStyleDone target:self action:@selector(navBackBtn:)];
+        self.navigationItem.leftBarButtonItem = self.navBackBtn;
+    }
     
     UIView * tableLine = [[UIView alloc]init];
     
@@ -44,14 +48,8 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void)navBackBtn:(UIBarButtonItem *)item {
+    [self.navigationController popViewControllerAnimated:YES];
 }
-*/
 
 @end

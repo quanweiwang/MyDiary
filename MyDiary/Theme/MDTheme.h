@@ -14,5 +14,15 @@
 + (instancetype)sharedInstance;
     
 //主题色
-+ (UIColor *) themeColor;
++ (UIColor *)themeColor;
+
+//首页头部 图片
++ (UIImage *)themeHomeHeaderImage;
+
+//Diary背景图片
++ (UIImage *)themeDiaryBackgroundImage;
+
+//更改导航栏颜色
++ (void)modifyNavigationBarColor;
+
 @end

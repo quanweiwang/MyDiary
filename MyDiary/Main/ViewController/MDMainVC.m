@@ -9,6 +9,8 @@
 #import "MDMainVC.h"
 #import "MDDiaryMainVC.h"
 #import "MDTheme.h"
+#import "MDEditUserProfileVC.h"
+
 
 @interface MDMainVC ()<UITableViewDelegate,UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UITableView *table;
@@ -29,6 +31,9 @@
     //头像按钮点击事件
     [self.headBtn addTarget:self action:@selector(headBtn:) forControlEvents:UIControlEventTouchUpInside];
     
+    //顶部背景图
+    self.backgroundImg.image = [MDTheme themeHomeHeaderImage];
+    
     //设置按钮
     self.settingBtn.tintColor = [MDTheme themeColor];
     [self.settingBtn setImage:[[UIImage imageNamed:@"ic_settings_white_36dp"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] forState:UIControlStateNormal];
@@ -42,12 +47,14 @@
     self.searchTextField.leftView = leftView;
     self.searchTextField.leftViewMode=UITextFieldViewModeAlways;
     
+    //主题变更通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(themeChangeNotification:) name:@"kMDThemeChangeNotification" object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    [self.navigationController setNavigationBarHidden:YES animated:NO];
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -65,7 +72,9 @@
 //头像按钮
 - (void)headBtn:(UIButton *)btn {
     
-    
+    UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    MDEditUserProfileVC * vc = [sb instantiateViewControllerWithIdentifier:@"MDEditUserProfileVC"];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 #pragma mark - Table view data source
@@ -155,6 +164,14 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     
     NSLog(@"%@", indexPath);
+}
+
+#pragma mark 主题变更通知
+- (void) themeChangeNotification:(NSNotification *)info {
+    
+    self.searchTextField.backgroundColor = [MDTheme themeColor];
+    self.settingBtn.tintColor = [MDTheme themeColor];
+    self.backgroundImg.image = [MDTheme themeHomeHeaderImage];
 }
 
 @end

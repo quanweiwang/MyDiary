@@ -14,6 +14,7 @@
 
 @interface MDDiaryMainVC ()
     
+@property (weak, nonatomic) IBOutlet UIImageView *backgroundImg;//背景图片
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segmented;
 @property (weak, nonatomic) IBOutlet UILabel *diaryLabel;
 @property (weak, nonatomic) IBOutlet UIScrollView *mainScrollView;
@@ -34,9 +35,12 @@
     //UISegmentedControl
     self.segmented.tintColor = [MDTheme themeColor];
     self.segmented.selectedSegmentIndex = 0;
-    [self.segmented addTarget:self action:@selector(segmented:) forControlEvents:UIControlEventTouchUpInside];
+    [self.segmented addTarget:self action:@selector(segmented:) forControlEvents:UIControlEventValueChanged];
     
     self.diaryLabel.textColor = [MDTheme themeColor];
+    
+    //背景图片
+    self.backgroundImg.image = [MDTheme themeDiaryBackgroundImage];
     
     //UIScrollView
     self.mainScrollView.contentSize = CGSizeMake([[UIScreen mainScreen] bounds].size.width * 3, self.mainScrollView.frame.size.height);
