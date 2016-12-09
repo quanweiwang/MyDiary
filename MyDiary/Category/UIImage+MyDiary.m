@@ -30,6 +30,7 @@
     
     //关闭上下文
     UIGraphicsEndImageContext();
+    
     return newImage;
 }
 

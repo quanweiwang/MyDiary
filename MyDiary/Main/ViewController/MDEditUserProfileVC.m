@@ -9,6 +9,7 @@
 #import "MDEditUserProfileVC.h"
 #import "MDTheme.h"
 #import "UIImage+MyDiary.h"
+#import "MDAsync.h"
 
 @interface MDEditUserProfileVC ()<UINavigationControllerDelegate,UIImagePickerControllerDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *table;
@@ -19,6 +20,8 @@
 @property (strong, nonatomic) UIAlertController * alertController;//选择器 iOS8 新增
 @property (strong, nonatomic) UIImagePickerController * picker;// 相册&拍照
 @property (assign, nonatomic) NSInteger selectedSegmentIndex;
+@property (strong, nonatomic) NSString * userName;//昵称
+
 @end
 
 @implementation MDEditUserProfileVC
@@ -129,6 +132,9 @@
     //修改导航栏颜色
     [MDTheme modifyNavigationBarColor];
     
+    //异步存储个人信息
+    [MDAsync async_saveUserInfo:self.headBtn.imageView.image userName:self.userName];
+    
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -171,6 +177,7 @@
     //输入框
     UITextField * inputTextField = (UITextField *)[cell viewWithTag:3000];
     inputTextField.hidden = NO;
+    [inputTextField addTarget:self action:@selector(textChange:) forControlEvents:UIControlEventEditingChanged];
     if (indexPath.row != 0) {
         inputTextField.hidden = YES;
     }
@@ -218,8 +225,10 @@
     if([mediaType isEqualToString:@"public.image"])	//被选中的是图片
     {
         //获取照片实例
-        UIImage *image = [UIImage roundImage:[info objectForKey:UIImagePickerControllerOriginalImage]] ;
+        NSData * imgData = UIImageJPEGRepresentation([info objectForKey:UIImagePickerControllerOriginalImage], 0.7);
+        UIImage * image = [UIImage imageWithData:imgData];
         [self.headBtn setImage:image forState:UIControlStateNormal];
+        
     }
     else
     {
@@ -233,6 +242,12 @@
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
 {
     [self.picker dismissViewControllerAnimated:YES completion:nil];
+}
+
+#pragma mark UITextView 相关
+- (void)textChange:(UITextField *)textField {
+    
+    self.userName = textField.text;
 }
 
 #pragma mark 懒加载

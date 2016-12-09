@@ -10,7 +10,7 @@
 #import "MDDiaryMainVC.h"
 #import "MDTheme.h"
 #import "MDEditUserProfileVC.h"
-
+#import "MDAsync.h"
 
 @interface MDMainVC ()<UITableViewDelegate,UITableViewDataSource>
 @property (weak, nonatomic) IBOutlet UITableView *table;
@@ -30,6 +30,9 @@
     
     //头像按钮点击事件
     [self.headBtn addTarget:self action:@selector(headBtn:) forControlEvents:UIControlEventTouchUpInside];
+    
+    //获取用户信息
+    [self read_userInfo];
     
     //顶部背景图
     self.backgroundImg.image = [MDTheme themeHomeHeaderImage];
@@ -174,4 +177,18 @@
     self.backgroundImg.image = [MDTheme themeHomeHeaderImage];
 }
 
+#pragma mark 读取用户数据
+- (void) read_userInfo {
+    
+    NSDictionary * userInfo = [MDAsync async_getUserInfo];
+    if (userInfo == nil) {
+        return;
+    }
+    
+    NSString * imagePath = [userInfo objectForKey:@"headImageFilePath"];
+    UIImage * headImage = [UIImage imageWithContentsOfFile:imagePath];
+    [self.headBtn setImage:headImage forState:UIControlStateNormal];
+    
+    self.nameLabel.text = [userInfo objectForKey:@"userName"] == nil ? @"Taki" : [userInfo objectForKey:@"userName"];
+}
 @end
