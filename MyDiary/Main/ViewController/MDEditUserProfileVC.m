@@ -17,10 +17,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *backBtn;//返回按钮
 @property (weak, nonatomic) IBOutlet UIButton *okBtn;//完成按钮
 @property (strong, nonatomic) NSMutableArray * data;//数据源
-@property (strong, nonatomic) UIAlertController * alertController;//选择器 iOS8 新增
 @property (strong, nonatomic) UIImagePickerController * picker;// 相册&拍照
 @property (assign, nonatomic) NSInteger selectedSegmentIndex;
-@property (strong, nonatomic) NSString * userName;//昵称
 
 @end
 
@@ -38,6 +36,8 @@
     [self.okBtn addTarget:self action:@selector(okBtn:) forControlEvents:UIControlEventTouchUpInside];
     //头像按钮
     [self.headBtn addTarget:self action:@selector(headBtn:) forControlEvents:UIControlEventTouchUpInside];
+    [self.headBtn setImage:self.headImg forState:UIControlStateNormal];
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -69,48 +69,47 @@
 //头像按钮
 - (void)headBtn:(UIButton *)btn {
     
-    if (self.alertController == nil) {
         
-        self.alertController = [UIAlertController alertControllerWithTitle:@"拍照&相册" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    UIAlertController * alertController = [UIAlertController alertControllerWithTitle:@"拍照&相册" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    UIAlertAction * photograph = [UIAlertAction actionWithTitle:@"拍照" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         
-        UIAlertAction * photograph = [UIAlertAction actionWithTitle:@"拍照" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            
-            if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
-                self.picker.sourceType = UIImagePickerControllerSourceTypeCamera;
-                [self presentViewController:self.picker animated:YES completion:nil];
-            }
-            else
-            {
-                NSLog(@"无摄像头，无法打开");
-            }
-
-            
-        }];
-        
-        UIAlertAction * photoAlbum = [UIAlertAction actionWithTitle:@"从相册中选择" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            
-            //相册选择
-            if (self.picker == nil) {
-                //初始化 相机
-                self.picker = [[UIImagePickerController alloc] init];
-                self.picker.delegate = self;
-                self.picker.allowsEditing = YES;
-            }
-            self.picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+        if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+            self.picker.sourceType = UIImagePickerControllerSourceTypeCamera;
             [self presentViewController:self.picker animated:YES completion:nil];
-            
-        }];
-        
-        UIAlertAction * cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-            
-        }];
-        
-        [self.alertController addAction:photograph];
-        [self.alertController addAction:photoAlbum];
-        [self.alertController addAction:cancel];
+        }
+        else
+        {
+            NSLog(@"无摄像头，无法打开");
+        }
 
-    }
-    [self presentViewController:self.alertController animated:YES completion:nil];
+        
+    }];
+    
+    UIAlertAction * photoAlbum = [UIAlertAction actionWithTitle:@"从相册中选择" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        
+        //相册选择
+        if (self.picker == nil) {
+            //初始化 相机
+            self.picker = [[UIImagePickerController alloc] init];
+            self.picker.delegate = self;
+            self.picker.allowsEditing = YES;
+        }
+        self.picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+        [self presentViewController:self.picker animated:YES completion:nil];
+        
+    }];
+    
+    UIAlertAction * cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+        
+    }];
+    
+    [alertController addAction:photograph];
+    [alertController addAction:photoAlbum];
+    [alertController addAction:cancel];
+
+    
+    [self presentViewController:alertController animated:YES completion:nil];
     
 }
 
@@ -134,6 +133,8 @@
     
     //异步存储个人信息
     [MDAsync async_saveUserInfo:self.headBtn.imageView.image userName:self.userName];
+    
+    [self.delegate editUserName:self.userName headImage:self.headBtn.imageView.image];
     
     [self.navigationController popViewControllerAnimated:YES];
 }
@@ -177,6 +178,7 @@
     //输入框
     UITextField * inputTextField = (UITextField *)[cell viewWithTag:3000];
     inputTextField.hidden = NO;
+    inputTextField.text = self.userName;
     [inputTextField addTarget:self action:@selector(textChange:) forControlEvents:UIControlEventEditingChanged];
     if (indexPath.row != 0) {
         inputTextField.hidden = YES;
@@ -225,8 +227,7 @@
     if([mediaType isEqualToString:@"public.image"])	//被选中的是图片
     {
         //获取照片实例
-        NSData * imgData = UIImageJPEGRepresentation([info objectForKey:UIImagePickerControllerOriginalImage], 0.7);
-        UIImage * image = [UIImage imageWithData:imgData];
+        UIImage * image = [UIImage roundImage:[info objectForKey:UIImagePickerControllerOriginalImage]];
         [self.headBtn setImage:image forState:UIControlStateNormal];
         
     }

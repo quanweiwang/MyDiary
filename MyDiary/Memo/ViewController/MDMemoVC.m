@@ -9,6 +9,7 @@
 #import "MDMemoVC.h"
 #import "MDMemoMdl.h"
 #import "MDTheme.h"
+#import "MDAddMemoVC.h"
 
 @interface MDMemoVC ()
 @property (weak, nonatomic) IBOutlet UITableView *table;
@@ -40,7 +41,9 @@
 #pragma mark 按钮点击事件
 - (void)rightBarBtn:(UIButton *) btn {
     
-    
+    UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    MDAddMemoVC * vc = [sb instantiateViewControllerWithIdentifier:@"MDAddMemoVC"];
+    [self presentViewController:vc animated:YES completion:nil];
 }
 
 #pragma mark Table view data source

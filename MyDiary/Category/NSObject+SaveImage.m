@@ -13,10 +13,10 @@
 - (BOOL) saveImageToSandbox:(UIImage *)image fileName:(NSString *)fileName {
     
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask, YES);
-    //图片文件的名称
-    NSString *filePath = [[paths objectAtIndex:0] stringByAppendingPathComponent:fileName];
+    NSString *filePath = [[paths objectAtIndex:0] stringByAppendingPathComponent:fileName];   // 保存文件的名称
+    BOOL isSave = [UIImagePNGRepresentation(image) writeToFile:filePath atomically:YES];
     
-    return [UIImagePNGRepresentation(image) writeToFile: filePath atomically:YES];
+    return isSave;
 }
 
 @end

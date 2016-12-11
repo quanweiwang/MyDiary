@@ -12,7 +12,7 @@
 #import "MDEditUserProfileVC.h"
 #import "MDAsync.h"
 
-@interface MDMainVC ()<UITableViewDelegate,UITableViewDataSource>
+@interface MDMainVC ()<UITableViewDelegate,UITableViewDataSource,MDEditUserDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *table;
 @property (weak, nonatomic) IBOutlet UIButton *headBtn;//头像按钮
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;//名字
@@ -77,6 +77,9 @@
     
     UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     MDEditUserProfileVC * vc = [sb instantiateViewControllerWithIdentifier:@"MDEditUserProfileVC"];
+    vc.headImg = self.headBtn.imageView.image;
+    vc.userName = self.nameLabel.text;
+    vc.delegate = self;
     [self.navigationController pushViewController:vc animated:YES];
 }
 
@@ -180,15 +183,27 @@
 #pragma mark 读取用户数据
 - (void) read_userInfo {
     
-    NSDictionary * userInfo = [MDAsync async_getUserInfo];
-    if (userInfo == nil) {
-        return;
-    }
+    //读取用户信息文件
+    NSString *path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES) objectAtIndex:0];
+    NSString * userInfoPath = [path stringByAppendingPathComponent:@"userInfo.plist"];
+    NSDictionary * userInfo = [NSDictionary dictionaryWithContentsOfFile:userInfoPath];
     
-    NSString * imagePath = [userInfo objectForKey:@"headImageFilePath"];
-    UIImage * headImage = [UIImage imageWithContentsOfFile:imagePath];
-    [self.headBtn setImage:headImage forState:UIControlStateNormal];
-    
+    //读取用户昵称
     self.nameLabel.text = [userInfo objectForKey:@"userName"] == nil ? @"Taki" : [userInfo objectForKey:@"userName"];
+    
+    //读取图片文件
+    NSString * headImagePath = [path stringByAppendingPathComponent:@"pic_head_image"];
+    NSData * imgData = [NSData dataWithContentsOfFile:headImagePath];
+    UIImage * headImage = [UIImage imageWithData:imgData] == nil ? [UIImage imageNamed:@"ic_contacts_image_default"] : [UIImage imageWithData:imgData];
+    [self.headBtn setImage:headImage forState:UIControlStateNormal];
+
 }
+
+#pragma mark MDEditUserDelegate 
+- (void)editUserName:(NSString *)userName headImage:(UIImage *)headimage {
+    
+    [self.headBtn setImage:headimage forState:UIControlStateNormal];
+    self.nameLabel.text = userName;
+}
+
 @end

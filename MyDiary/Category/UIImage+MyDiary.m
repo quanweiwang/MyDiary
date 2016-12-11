@@ -12,19 +12,22 @@
 
 + (UIImage *)roundImage:(UIImage *)image {
     
-    UIGraphicsBeginImageContextWithOptions(image.size, NO, 0.0);
+    //先对图片压缩
+    UIImage * compressImage = [UIImage compressImage:image];
+    
+    UIGraphicsBeginImageContextWithOptions(compressImage.size, NO, 0.0);
     
     //获取上下文
     CGContextRef ctx = UIGraphicsGetCurrentContext();
     //添加一个圆
-    CGRect rect = CGRectMake(0, 0, image.size.width, image.size.height);
+    CGRect rect = CGRectMake(0, 0, compressImage.size.width, compressImage.size.height);
     CGContextAddEllipseInRect(ctx, rect);
     
     //剪裁
     CGContextClip(ctx);
     
     //将图片绘制上去
-    [image drawInRect:rect];
+    [compressImage drawInRect:rect];
     
     UIImage * newImage = UIGraphicsGetImageFromCurrentImageContext();
     
@@ -32,6 +35,29 @@
     UIGraphicsEndImageContext();
     
     return newImage;
+}
+
++ (UIImage *)compressImage:(UIImage *)image {
+    
+    //原图等比缩放
+    CGFloat width = image.size.width / [UIScreen mainScreen].bounds.size.width;
+    CGFloat height = image.size.height / [UIScreen mainScreen].bounds.size.height;
+    
+    CGFloat factor = fmax(width, height);
+    
+    //画布大小
+    CGFloat newWidth = image.size.width / factor;
+    CGFloat newheight = image.size.height / factor;
+    CGSize newSize = CGSizeMake(newWidth, newheight);
+
+    UIGraphicsBeginImageContext(newSize);
+    [image drawInRect:CGRectMake(0, 0, newWidth, newheight)];
+    UIImage * newImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    //图像压缩
+    NSData * imgData = UIImageJPEGRepresentation(newImage, 0.5);
+    return [UIImage imageWithData:imgData];
 }
 
 @end
