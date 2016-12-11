@@ -6,9 +6,8 @@
 //  Copyright © 2016年 wangquanwei. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
 #import "BaseVC.h"
 
-@interface BaseTableVC : BaseVC
+@interface BaseTableVC : BaseVC<UITableViewDelegate,UITableViewDataSource>
 
 @end

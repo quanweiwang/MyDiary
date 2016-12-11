@@ -11,6 +11,7 @@
 #import "MDTheme.h"
 #import "MDEditUserProfileVC.h"
 #import "MDAsync.h"
+#import "MDContactsVC.h"
 
 @interface MDMainVC ()<UITableViewDelegate,UITableViewDataSource,MDEditUserDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *table;
@@ -66,6 +67,12 @@
     [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 
+- (void)dealloc {
+    
+    //移除通知
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"kMDThemeChangeNotification" object:nil];
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -94,7 +101,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     
-    return 2;
+    return 3;
 }
 
 //每行高
@@ -132,12 +139,19 @@
         [self.navigationController pushViewController:vc animated:YES];
 
     }
-    else{
+    else if (indexPath.row == 1){
         
         UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         MDDiaryMainVC * vc = [sb instantiateViewControllerWithIdentifier:@"MDMemoVC"];
         [self.navigationController pushViewController:vc animated:YES];
 
+    }
+    else{
+        
+        UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        MDContactsVC * vc = [sb instantiateViewControllerWithIdentifier:@"MDContactsVC"];
+        [self.navigationController pushViewController:vc animated:YES];
+        
     }
     
     
