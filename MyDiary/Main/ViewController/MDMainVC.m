@@ -163,7 +163,23 @@
     //删除
     UITableViewRowAction * deleAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:@"删除" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
         
-        NSLog(@"删除");
+        UIAlertController * alertController = [UIAlertController alertControllerWithTitle:@"提示" message:@"将删除该分类下所有项目,且不可恢复\n确定要继续吗" preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            
+        }];
+        
+        UIAlertAction * exitAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+            
+            
+            NSLog(@"删除");
+            
+        }];
+        
+        [alertController addAction:cancelAction];
+        [alertController addAction:exitAction];
+        
+        [self presentViewController:alertController animated:YES completion:nil];
     }];
     
     //编辑
