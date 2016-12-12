@@ -26,7 +26,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.titleLabel.text = @"写备忘";
+    
+    if (self.isEdit == YES) {
+        self.titleLabel.text = @"编辑";
+        
+        self.memoTextView.text = self.memoStr;
+    }
+    else{
+        self.titleLabel.text = @"写备忘";
+    }
     
     self.navigationBarView.backgroundColor = [MDTheme themeColor];
     
@@ -84,16 +92,23 @@
 //完成按钮
 - (void)okBtn:(UIButton *)btn {
     
-    //异步存储
-    [MDAsync async_saveMemo:self.memoTextView.text];
-    
     [self.memoTextView resignFirstResponder];
     
     MDMemoMdl * model = [[MDMemoMdl alloc] init];
     model.memoState = 0;
     model.memoString = self.memoTextView.text;
     
-    [self.delegate addMemo:model];
+    if (self.isEdit == YES) {
+        
+        [self.delegate editMemo:model indexPath:self.indexPath];
+    }
+    else{
+        //异步存储
+        [MDAsync async_saveMemo:self.memoTextView.text];
+        
+        [self.delegate addMemo:model];
+
+    }
     
     [self dismissViewControllerAnimated:YES completion:nil];
 }

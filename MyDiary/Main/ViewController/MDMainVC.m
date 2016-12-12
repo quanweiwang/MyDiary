@@ -143,6 +143,7 @@
         
         UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         MDDiaryMainVC * vc = [sb instantiateViewControllerWithIdentifier:@"MDMemoVC"];
+        vc.title = @"测试数据";
         [self.navigationController pushViewController:vc animated:YES];
 
     }

@@ -108,13 +108,40 @@
     //删除
     UITableViewRowAction * deleAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:@"删除" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
         
-        NSLog(@"删除");
+        UIAlertController * alertController = [UIAlertController alertControllerWithTitle:@"提示" message:@"确定要删除该条备忘录吗" preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            
+        }];
+        
+        UIAlertAction * exitAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+            
+            [self.data removeObjectAtIndex:indexPath.row];
+            
+            [self.table deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+            
+        }];
+        
+        [alertController addAction:cancelAction];
+        [alertController addAction:exitAction];
+        
+        [self presentViewController:alertController animated:YES completion:nil];
+        
     }];
     
     //编辑
     UITableViewRowAction * editAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDefault title:@"编辑" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
-        //事件
-        NSLog(@"编辑");
+        
+        MDMemoMdl * model = self.data[indexPath.row];
+        
+        UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        MDAddMemoVC * vc = [sb instantiateViewControllerWithIdentifier:@"MDAddMemoVC"];
+        vc.isEdit = YES;
+        vc.delegate = self;
+        vc.memoStr = model.memoString;
+        vc.indexPath = indexPath;
+        [self presentViewController:vc animated:YES completion:nil];
+        
     }];
     
     deleAction.backgroundColor = [UIColor redColor];
@@ -150,21 +177,6 @@
     [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
 
 }
-
-#pragma mark TableView 插入、删除效果
-//插入一行
-- (void)insertRows {
-    
-    NSIndexPath * indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-    [self.table insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationTop];
-}
-    
-//删除一行
-- (void)deleteRows {
-    
-    NSIndexPath * indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-    [self.table deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationBottom];
-}
     
 #pragma mark 懒加载
 //导航右按钮
@@ -188,11 +200,20 @@
 }
 
 #pragma mark MDAddMemo 相关
+//新增
 - (void)addMemo:(MDMemoMdl *)memoMdl {
     
     [self.data addObject:memoMdl];
     
     [self.table insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:self.data.count-1 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
+}
+
+//编辑
+- (void)editMemo:(MDMemoMdl *)memoMdl indexPath:(NSIndexPath *)indexPath{
+    
+    [self.data replaceObjectAtIndex:indexPath.row withObject:memoMdl];
+    
+    [self.table reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:self.data.count-1 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
 }
 
 @end
