@@ -7,7 +7,16 @@
 //
 
 #import "BaseVC.h"
+@class MDMemoMdl;
+
+@protocol MDAddMemoDelegate <NSObject>
+
+- (void)addMemo:(MDMemoMdl *)memoMdl;
+
+@end
 
 @interface MDAddMemoVC : BaseVC
+
+@property (assign, nonatomic) id<MDAddMemoDelegate>delegate;
 
 @end

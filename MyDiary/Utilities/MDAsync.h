@@ -14,4 +14,7 @@
 //存储用户信息
 + (void)async_saveUserInfo:(UIImage *) userHeadImage userName:(NSString *) userName;
 
+//存储备忘录
++ (void)async_saveMemo:(NSString *)memo;
+
 @end

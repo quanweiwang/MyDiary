@@ -11,7 +11,7 @@
 #import "MDTheme.h"
 #import "MDAddMemoVC.h"
 
-@interface MDMemoVC ()
+@interface MDMemoVC ()<MDAddMemoDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *table;
 @property (strong, nonatomic) UIButton * rightBarBtn;//导航右按钮
 @property (strong, nonatomic) NSMutableArray * data;//数据源
@@ -43,6 +43,7 @@
     
     UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     MDAddMemoVC * vc = [sb instantiateViewControllerWithIdentifier:@"MDAddMemoVC"];
+    vc.delegate = self;
     [self presentViewController:vc animated:YES completion:nil];
 }
 
@@ -184,6 +185,14 @@
         _data = [NSMutableArray array];
     }
     return _data;
+}
+
+#pragma mark MDAddMemo 相关
+- (void)addMemo:(MDMemoMdl *)memoMdl {
+    
+    [self.data addObject:memoMdl];
+    
+    [self.table insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:self.data.count-1 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
 }
 
 @end

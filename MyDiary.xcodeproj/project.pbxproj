@@ -30,6 +30,7 @@
 		D6E3EC531DFA3D4200188A4D /* MDEditUserProfileVC.m in Sources */ = {isa = PBXBuildFile; fileRef = D6E3EC521DFA3D4200188A4D /* MDEditUserProfileVC.m */; };
 		D6E3EC571DFA9E0C00188A4D /* UIImage+MyDiary.m in Sources */ = {isa = PBXBuildFile; fileRef = D6E3EC561DFA9E0C00188A4D /* UIImage+MyDiary.m */; };
 		D6E3EC5A1DFAA41300188A4D /* BaseNav.m in Sources */ = {isa = PBXBuildFile; fileRef = D6E3EC591DFAA41300188A4D /* BaseNav.m */; };
+		D6ECEDCD1DFE9EA300A6648C /* QWTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = D6ECEDCC1DFE9EA300A6648C /* QWTextView.m */; };
 		D6F818161DFAE0E800AFFFD4 /* NSObject+SaveImage.m in Sources */ = {isa = PBXBuildFile; fileRef = D6F818151DFAE0E800AFFFD4 /* NSObject+SaveImage.m */; };
 		D6F8181A1DFAE49300AFFFD4 /* MDAsync.m in Sources */ = {isa = PBXBuildFile; fileRef = D6F818191DFAE49300AFFFD4 /* MDAsync.m */; };
 /* End PBXBuildFile section */
@@ -99,6 +100,8 @@
 		D6E3EC561DFA9E0C00188A4D /* UIImage+MyDiary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImage+MyDiary.m"; path = "Category/UIImage+MyDiary.m"; sourceTree = "<group>"; };
 		D6E3EC581DFAA41300188A4D /* BaseNav.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseNav.h; sourceTree = "<group>"; };
 		D6E3EC591DFAA41300188A4D /* BaseNav.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseNav.m; sourceTree = "<group>"; };
+		D6ECEDCB1DFE9EA300A6648C /* QWTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QWTextView.h; sourceTree = "<group>"; };
+		D6ECEDCC1DFE9EA300A6648C /* QWTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QWTextView.m; sourceTree = "<group>"; };
 		D6F818141DFAE0E800AFFFD4 /* NSObject+SaveImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSObject+SaveImage.h"; path = "Category/NSObject+SaveImage.h"; sourceTree = "<group>"; };
 		D6F818151DFAE0E800AFFFD4 /* NSObject+SaveImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSObject+SaveImage.m"; path = "Category/NSObject+SaveImage.m"; sourceTree = "<group>"; };
 		D6F818181DFAE49300AFFFD4 /* MDAsync.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDAsync.h; path = Utilities/MDAsync.h; sourceTree = "<group>"; };
@@ -371,9 +374,28 @@
 			name = Model;
 			sourceTree = "<group>";
 		};
+		D6ECEDC91DFE9E7900A6648C /* QWTextView */ = {
+			isa = PBXGroup;
+			children = (
+				D6ECEDCA1DFE9EA300A6648C /* QWTextView */,
+			);
+			name = QWTextView;
+			sourceTree = "<group>";
+		};
+		D6ECEDCA1DFE9EA300A6648C /* QWTextView */ = {
+			isa = PBXGroup;
+			children = (
+				D6ECEDCB1DFE9EA300A6648C /* QWTextView.h */,
+				D6ECEDCC1DFE9EA300A6648C /* QWTextView.m */,
+			);
+			name = QWTextView;
+			path = Utilities/QWTextView;
+			sourceTree = "<group>";
+		};
 		D6F818171DFAE40900AFFFD4 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				D6ECEDC91DFE9E7900A6648C /* QWTextView */,
 				D6F818181DFAE49300AFFFD4 /* MDAsync.h */,
 				D6F818191DFAE49300AFFFD4 /* MDAsync.m */,
 			);
@@ -583,6 +605,7 @@
 				D60996F01DFCFAFC005B6880 /* MDAddMemoVC.m in Sources */,
 				D6C372271DF7B11C00C8C544 /* main.m in Sources */,
 				D6490D871DF853AB0068BE61 /* MDDiaryVC.m in Sources */,
+				D6ECEDCD1DFE9EA300A6648C /* QWTextView.m in Sources */,
 				D6C372701DF7DFB500C8C544 /* BaseTableVC.m in Sources */,
 				D6E3EC5A1DFAA41300188A4D /* BaseNav.m in Sources */,
 				D6C372831DF7F16600C8C544 /* MDMemoMdl.m in Sources */,
