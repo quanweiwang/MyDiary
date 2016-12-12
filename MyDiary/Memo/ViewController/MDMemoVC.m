@@ -15,6 +15,7 @@
 @property (weak, nonatomic) IBOutlet UITableView *table;
 @property (strong, nonatomic) UIButton * rightBarBtn;//导航右按钮
 @property (strong, nonatomic) NSMutableArray * data;//数据源
+
 @end
 
 @implementation MDMemoVC

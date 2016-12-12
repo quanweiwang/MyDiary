@@ -20,6 +20,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *backgroundImg;//顶部背景图
 @property (weak, nonatomic) IBOutlet UITextField *searchTextField;//底部搜索框
 @property (weak, nonatomic) IBOutlet UIButton *settingBtn;//底部设置按钮
+@property (assign, nonatomic) BOOL isAddType;//是否是新增条目状态 YES是 NO否
 
 @end
 
@@ -101,7 +102,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     
-    return 3;
+    return self.isAddType == YES ? 4 : 3;
 }
 
 //每行高
@@ -201,6 +202,18 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     
     NSLog(@"%@", indexPath);
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    
+    int currentPostion = scrollView.contentOffset.y;
+    
+    if (scrollView.frame.origin.y - currentPostion > 25 && self.isAddType == NO)
+    {
+        self.isAddType = YES;
+        [self.table insertRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:0]] withRowAnimation:UITableViewRowAnimationTop];
+        
+    }
 }
 
 #pragma mark 主题变更通知
