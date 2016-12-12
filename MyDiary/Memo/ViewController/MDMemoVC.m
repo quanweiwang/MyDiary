@@ -111,10 +111,12 @@
         UIAlertController * alertController = [UIAlertController alertControllerWithTitle:@"提示" message:@"确定要删除该条备忘录吗" preferredStyle:UIAlertControllerStyleAlert];
         
         UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-            
+            tableView.editing = NO;
         }];
         
         UIAlertAction * exitAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+            
+            tableView.editing = NO;
             
             [self.data removeObjectAtIndex:indexPath.row];
             
@@ -131,6 +133,8 @@
     
     //编辑
     UITableViewRowAction * editAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDefault title:@"编辑" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
+        
+        tableView.editing = NO;
         
         MDMemoMdl * model = self.data[indexPath.row];
         
