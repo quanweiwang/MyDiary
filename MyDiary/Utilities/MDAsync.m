@@ -61,11 +61,24 @@
 + (void)async_saveMemo:(NSString *)memo {
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        // 耗时的操作
         
+        // 耗时的操作
+        NSString *path = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES) objectAtIndex:0] stringByAppendingPathComponent:@"Memo/memo.plist"];
+        
+        //如果文件不存在
+        if ([[NSFileManager defaultManager] fileExistsAtPath:path] == NO)
+            
+        {
+            NSFileManager* fileManager = [NSFileManager defaultManager];
+            
+            [fileManager createFileAtPath:path contents:nil attributes:nil];
+            
+        }
+
         
         dispatch_async(dispatch_get_main_queue(), ^{
             // 更新界面
+            NSLog(@"备忘录写入成功");
         });
     });
     

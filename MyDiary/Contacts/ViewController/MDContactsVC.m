@@ -9,10 +9,13 @@
 #import "MDContactsVC.h"
 #import <Contacts/Contacts.h>
 #import <ContactsUI/ContactsUI.h>
+#import <AddressBook/AddressBook.h>
+#import <AddressBookUI/AddressBookUI.h>
 #import "MDContactsMdl.h"
 #import "MDTheme.h"
+#import "UITableView+TableViewIndex.h"
 
-@interface MDContactsVC ()<CNContactPickerDelegate>
+@interface MDContactsVC ()<CNContactPickerDelegate,ABPeoplePickerNavigationControllerDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *searchTextField;
 @property (weak, nonatomic) IBOutlet UITableView *table;
 @property (weak, nonatomic) IBOutlet UIImageView *backgroundImg;//背景图片
@@ -31,6 +34,7 @@
     self.navigationItem.rightBarButtonItem = rightBarButtonItem;
     
     self.table.backgroundColor = [UIColor clearColor];
+    [self.table md_setLeftTableViewIndex];
     
     //主题背景
     self.backgroundImg.image = [MDTheme themeContactsBackgroundImage];
@@ -59,11 +63,17 @@
             
             CNContactPickerViewController * picker = [[CNContactPickerViewController alloc] init];
             picker.delegate = self;
+            picker.displayedPropertyKeys = @[CNContactPhoneNumbersKey];
             [self presentViewController:picker animated:YES completion:nil];
             
         }
         else{
             
+            ABPeoplePickerNavigationController * peoplePickerNav = [ABPeoplePickerNavigationController new];
+            
+            peoplePickerNav.peoplePickerDelegate = self;
+            
+            [self presentViewController:peoplePickerNav animated:YES completion:nil];
         }
         
     }];
@@ -140,26 +150,67 @@
     
 }
 
+- (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    //删除
+    UITableViewRowAction * deleAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDefault title:@" " handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
+        
+        UIAlertController * alertController = [UIAlertController alertControllerWithTitle:@"提示" message:@"将删除该分类下所有项目,且不可恢复\n确定要继续吗" preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            tableView.editing = NO;
+        }];
+        
+        UIAlertAction * exitAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+            
+            tableView.editing = NO;
+            NSLog(@"删除");
+            
+        }];
+        
+        [alertController addAction:cancelAction];
+        [alertController addAction:exitAction];
+        
+        [self presentViewController:alertController animated:YES completion:nil];
+    }];
+       
+    return @[deleAction];
+}
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    return YES;
+}
+
 -(NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView
 {
     return [NSArray arrayWithObjects:UITableViewIndexSearch,@"A",@"B",@"C",@"D",@"E",@"F",@"G",@"H",@"I",@"J",@"K",@"L",@"M",@"N",@"O",@"P",@"Q",@"R",@"S",@"T",@"U",@"V",@"W",@"X",@"Y",@"Z",@"#", nil];
 }
 
-#pragma mark CNContactPickerViewController相关
-- (void)contactPicker:(CNContactPickerViewController *)picker didSelectContact:(CNContact *)contact {
+#pragma mark CNContactPickerDelegate 相关
+- (void)contactPicker:(CNContactPickerViewController *)picker didSelectContactProperty:(CNContactProperty *)contactProperty {
     
-    for (CNLabeledValue * labeledValue in contact.phoneNumbers) {
+    if ([contactProperty.key isEqualToString:@"phoneNumbers"]) {
         
-        CNPhoneNumber * phoneNumber = labeledValue.value;
+        CNContact * contact = contactProperty.contact;
+        CNPhoneNumber * phoneNumber = contactProperty.value;
         
         MDContactsMdl * model = [[MDContactsMdl alloc] init];
         model.name = contact.givenName;
         model.phone = phoneNumber.stringValue;
-        
+    
         [self.data addObject:model];
     }
     
     [self.table reloadData];
+}
+
+
+#pragma mark ABPeoplePickerNavigationControllerDelegate 相关
+- (void)peoplePickerNavigationController:(ABPeoplePickerNavigationController*)peoplePicker didSelectPerson:(ABRecordRef)person property:(ABPropertyID)property identifier:(ABMultiValueIdentifier)identifier{
+    
+    
+    
 }
 
 #pragma mark 懒加载
