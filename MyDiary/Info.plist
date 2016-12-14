@@ -22,6 +22,8 @@
 	<true/>
 	<key>NSCameraUsageDescription</key>
 	<string>MyDiary需要您的同意才能使用相机</string>
+	<key>NSContactsUsageDescription</key>
+	<string>MyDiary需要您的同意才能使用通讯录</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>MyDiary需要您的同意才能使用媒体库</string>
 	<key>UILaunchStoryboardName</key>

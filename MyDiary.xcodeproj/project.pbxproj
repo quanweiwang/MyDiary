@@ -10,12 +10,15 @@
 		6F86EB547E1BA1DBB74224CB /* libPods-MyDiary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C162C306D679F890D4794B83 /* libPods-MyDiary.a */; };
 		D60996F01DFCFAFC005B6880 /* MDAddMemoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = D60996EF1DFCFAFC005B6880 /* MDAddMemoVC.m */; };
 		D60996F31DFD124B005B6880 /* BaseVC.m in Sources */ = {isa = PBXBuildFile; fileRef = D60996F21DFD124B005B6880 /* BaseVC.m */; };
-		D60996F61DFD579F005B6880 /* MDContactsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = D60996F51DFD579F005B6880 /* MDContactsVC.m */; };
 		D6490D751DF844770068BE61 /* MDTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = D6490D741DF844770068BE61 /* MDTheme.m */; };
 		D6490D7E1DF850540068BE61 /* MDDiaryMainVC.m in Sources */ = {isa = PBXBuildFile; fileRef = D6490D7D1DF850540068BE61 /* MDDiaryMainVC.m */; };
 		D6490D811DF853730068BE61 /* MDEntriesVC.m in Sources */ = {isa = PBXBuildFile; fileRef = D6490D801DF853730068BE61 /* MDEntriesVC.m */; };
 		D6490D841DF853930068BE61 /* MDCalendarVC.m in Sources */ = {isa = PBXBuildFile; fileRef = D6490D831DF853930068BE61 /* MDCalendarVC.m */; };
 		D6490D871DF853AB0068BE61 /* MDDiaryVC.m in Sources */ = {isa = PBXBuildFile; fileRef = D6490D861DF853AB0068BE61 /* MDDiaryVC.m */; };
+		D66C83E61E0143EF00333213 /* Contacts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D66C83E51E0143EF00333213 /* Contacts.framework */; };
+		D66C83E81E0143F400333213 /* ContactsUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D66C83E71E0143F400333213 /* ContactsUI.framework */; };
+		D66C83EE1E0147E600333213 /* MDContactsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = D66C83ED1E0147E600333213 /* MDContactsVC.m */; };
+		D66C83F11E01484400333213 /* MDContactsMdl.m in Sources */ = {isa = PBXBuildFile; fileRef = D66C83F01E01484400333213 /* MDContactsMdl.m */; };
 		D6C372271DF7B11C00C8C544 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D6C372261DF7B11C00C8C544 /* main.m */; };
 		D6C3722A1DF7B11C00C8C544 /* MDAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D6C372291DF7B11C00C8C544 /* MDAppDelegate.m */; };
 		D6C372301DF7B11C00C8C544 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D6C3722E1DF7B11C00C8C544 /* Main.storyboard */; };
@@ -60,8 +63,6 @@
 		D60996EF1DFCFAFC005B6880 /* MDAddMemoVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDAddMemoVC.m; path = Memo/ViewController/MDAddMemoVC.m; sourceTree = "<group>"; };
 		D60996F11DFD124B005B6880 /* BaseVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BaseVC.h; path = BaseClass/BaseVC.h; sourceTree = "<group>"; };
 		D60996F21DFD124B005B6880 /* BaseVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BaseVC.m; path = BaseClass/BaseVC.m; sourceTree = "<group>"; };
-		D60996F41DFD579F005B6880 /* MDContactsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDContactsVC.h; path = Contacts/MDContactsVC.h; sourceTree = "<group>"; };
-		D60996F51DFD579F005B6880 /* MDContactsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDContactsVC.m; path = Contacts/MDContactsVC.m; sourceTree = "<group>"; };
 		D6490D731DF844770068BE61 /* MDTheme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDTheme.h; path = Theme/MDTheme.h; sourceTree = "<group>"; };
 		D6490D741DF844770068BE61 /* MDTheme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDTheme.m; path = Theme/MDTheme.m; sourceTree = "<group>"; };
 		D6490D7C1DF850540068BE61 /* MDDiaryMainVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDDiaryMainVC.h; path = Diary/ViewController/MDDiaryMainVC.h; sourceTree = "<group>"; };
@@ -72,6 +73,12 @@
 		D6490D831DF853930068BE61 /* MDCalendarVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDCalendarVC.m; path = Diary/ViewController/MDCalendarVC.m; sourceTree = "<group>"; };
 		D6490D851DF853AB0068BE61 /* MDDiaryVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDDiaryVC.h; path = Diary/ViewController/MDDiaryVC.h; sourceTree = "<group>"; };
 		D6490D861DF853AB0068BE61 /* MDDiaryVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDDiaryVC.m; path = Diary/ViewController/MDDiaryVC.m; sourceTree = "<group>"; };
+		D66C83E51E0143EF00333213 /* Contacts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Contacts.framework; path = System/Library/Frameworks/Contacts.framework; sourceTree = SDKROOT; };
+		D66C83E71E0143F400333213 /* ContactsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ContactsUI.framework; path = System/Library/Frameworks/ContactsUI.framework; sourceTree = SDKROOT; };
+		D66C83EC1E0147E600333213 /* MDContactsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDContactsVC.h; path = Contacts/ViewController/MDContactsVC.h; sourceTree = "<group>"; };
+		D66C83ED1E0147E600333213 /* MDContactsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDContactsVC.m; path = Contacts/ViewController/MDContactsVC.m; sourceTree = "<group>"; };
+		D66C83EF1E01484400333213 /* MDContactsMdl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDContactsMdl.h; path = Contacts/Model/MDContactsMdl.h; sourceTree = "<group>"; };
+		D66C83F01E01484400333213 /* MDContactsMdl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDContactsMdl.m; path = Contacts/Model/MDContactsMdl.m; sourceTree = "<group>"; };
 		D6C372221DF7B11C00C8C544 /* MyDiary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyDiary.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D6C372261DF7B11C00C8C544 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		D6C372281DF7B11C00C8C544 /* MDAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MDAppDelegate.h; sourceTree = "<group>"; };
@@ -113,6 +120,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D66C83E81E0143F400333213 /* ContactsUI.framework in Frameworks */,
+				D66C83E61E0143EF00333213 /* Contacts.framework in Frameworks */,
 				6F86EB547E1BA1DBB74224CB /* libPods-MyDiary.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -137,6 +146,8 @@
 		1630596FBDC49A0BE9476EFD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D66C83E71E0143F400333213 /* ContactsUI.framework */,
+				D66C83E51E0143EF00333213 /* Contacts.framework */,
 				C162C306D679F890D4794B83 /* libPods-MyDiary.a */,
 			);
 			name = Frameworks;
@@ -178,6 +189,31 @@
 			children = (
 			);
 			name = VIew;
+			sourceTree = "<group>";
+		};
+		D66C83E91E0147A100333213 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		D66C83EA1E0147A600333213 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				D66C83EC1E0147E600333213 /* MDContactsVC.h */,
+				D66C83ED1E0147E600333213 /* MDContactsVC.m */,
+			);
+			name = ViewController;
+			sourceTree = "<group>";
+		};
+		D66C83EB1E0147AE00333213 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				D66C83EF1E01484400333213 /* MDContactsMdl.h */,
+				D66C83F01E01484400333213 /* MDContactsMdl.m */,
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 		D6C372191DF7B11C00C8C544 = {
@@ -263,8 +299,9 @@
 		D6C372591DF7B21000C8C544 /* Contacts */ = {
 			isa = PBXGroup;
 			children = (
-				D60996F41DFD579F005B6880 /* MDContactsVC.h */,
-				D60996F51DFD579F005B6880 /* MDContactsVC.m */,
+				D66C83EB1E0147AE00333213 /* Model */,
+				D66C83EA1E0147A600333213 /* ViewController */,
+				D66C83E91E0147A100333213 /* View */,
 			);
 			name = Contacts;
 			sourceTree = "<group>";
@@ -592,12 +629,12 @@
 			files = (
 				D6490D751DF844770068BE61 /* MDTheme.m in Sources */,
 				D6E3EC571DFA9E0C00188A4D /* UIImage+MyDiary.m in Sources */,
+				D66C83EE1E0147E600333213 /* MDContactsVC.m in Sources */,
 				D6C3722A1DF7B11C00C8C544 /* MDAppDelegate.m in Sources */,
 				D60996F31DFD124B005B6880 /* BaseVC.m in Sources */,
 				D6F8181A1DFAE49300AFFFD4 /* MDAsync.m in Sources */,
 				D6C372741DF7E50000C8C544 /* MDMemoVC.m in Sources */,
 				D6C372631DF7B2CB00C8C544 /* MDMainVC.m in Sources */,
-				D60996F61DFD579F005B6880 /* MDContactsVC.m in Sources */,
 				D6E3EC531DFA3D4200188A4D /* MDEditUserProfileVC.m in Sources */,
 				D6490D841DF853930068BE61 /* MDCalendarVC.m in Sources */,
 				D6490D7E1DF850540068BE61 /* MDDiaryMainVC.m in Sources */,
@@ -607,6 +644,7 @@
 				D6490D871DF853AB0068BE61 /* MDDiaryVC.m in Sources */,
 				D6ECEDCD1DFE9EA300A6648C /* QWTextView.m in Sources */,
 				D6C372701DF7DFB500C8C544 /* BaseTableVC.m in Sources */,
+				D66C83F11E01484400333213 /* MDContactsMdl.m in Sources */,
 				D6E3EC5A1DFAA41300188A4D /* BaseNav.m in Sources */,
 				D6C372831DF7F16600C8C544 /* MDMemoMdl.m in Sources */,
 				D6F818161DFAE0E800AFFFD4 /* NSObject+SaveImage.m in Sources */,

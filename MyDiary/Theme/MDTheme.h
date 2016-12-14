@@ -22,6 +22,9 @@
 //Diary背景图片
 + (UIImage *)themeDiaryBackgroundImage;
 
+//Contacts背景图片
++ (UIImage *)themeContactsBackgroundImage;
+
 //更改导航栏颜色
 + (void)modifyNavigationBarColor;
 

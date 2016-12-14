@@ -57,6 +57,18 @@
 
 }
 
++ (UIImage *)themeContactsBackgroundImage {
+    
+    NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
+    NSNumber * number = [userDefaults objectForKey:@"Theme"];
+    
+    if ([number integerValue] == 1 ) {
+        return [[MDTheme sharedInstance] themeContactsBackgroundGirlImage];
+    }
+    return [[MDTheme sharedInstance] themeContactsBackgroundBoyImage];
+    
+}
+
 + (void)modifyNavigationBarColor {
     
     [[UINavigationBar appearance] setBarTintColor:[MDTheme themeColor]];
@@ -92,6 +104,15 @@
 //主题粉 Diary背景图片
 - (UIImage *)themeDiaryBackgroundGirlImage {
     return [UIImage imageNamed:@"theme_bg_mitsuha"];
+}
+
+//主题蓝 Contacts背景图片
+- (UIImage *)themeContactsBackgroundBoyImage {
+    return [UIImage imageNamed:@"contacts_bg_taki"];
+}
+//主题粉 Contacts背景图片
+- (UIImage *)themeContactsBackgroundGirlImage {
+    return [UIImage imageNamed:@"contacts_bg_mitsuha"];
 }
 
 @end
