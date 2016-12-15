@@ -84,4 +84,49 @@
     
 }
 
++ (void)async_saveContacts:(NSMutableArray *)contacts {
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        
+        // 耗时的操作
+        NSString *path = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES) objectAtIndex:0] stringByAppendingPathComponent:@"contacts.plist"];
+        
+        //如果文件不存在
+        if ([[NSFileManager defaultManager] fileExistsAtPath:path] == NO)
+            
+        {
+            NSFileManager* fileManager = [NSFileManager defaultManager];
+            
+            [fileManager createFileAtPath:path contents:nil attributes:nil];
+            
+        }
+        
+        NSArray * contactsArray = [contacts copy];
+        [contactsArray writeToFile:path atomically:YES];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            // 更新界面
+            NSLog(@"联系人写入成功");
+        });
+    });
+    
+    
+}
+
++ (NSMutableArray *)async_readContacts {
+    
+    // 耗时的操作
+    NSString *path = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES) objectAtIndex:0] stringByAppendingPathComponent:@"contacts.plist"];
+    
+    //如果文件不存在
+    if ([[NSFileManager defaultManager] fileExistsAtPath:path] == NO)
+        
+    {
+        return nil;
+    }
+    
+    NSMutableArray * contacts = [NSMutableArray arrayWithContentsOfFile:path];
+    return contacts;
+}
+
 @end

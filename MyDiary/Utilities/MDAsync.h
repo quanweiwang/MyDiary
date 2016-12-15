@@ -17,4 +17,10 @@
 //存储备忘录
 + (void)async_saveMemo:(NSString *)memo;
 
+//存储联系人
++ (void)async_saveContacts:(NSMutableArray *)contacts;
+
+//读取联系人
++ (NSMutableArray *)async_readContacts;
+
 @end

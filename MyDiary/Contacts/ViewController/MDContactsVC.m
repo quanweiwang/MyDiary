@@ -13,7 +13,7 @@
 #import <AddressBookUI/AddressBookUI.h>
 #import "MDContactsMdl.h"
 #import "MDTheme.h"
-#import "UITableView+TableViewIndex.h"
+#import "MDAsync.h"
 
 @interface MDContactsVC ()<CNContactPickerDelegate,ABPeoplePickerNavigationControllerDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *searchTextField;
@@ -21,7 +21,8 @@
 @property (weak, nonatomic) IBOutlet UIImageView *backgroundImg;//背景图片
 
 @property (strong, nonatomic) NSMutableArray * data;
-
+@property (strong, nonatomic) NSMutableArray * sortArray;
+@property (strong, nonatomic) NSMutableArray * indexArray;//索引
 @end
 
 @implementation MDContactsVC
@@ -34,11 +35,12 @@
     self.navigationItem.rightBarButtonItem = rightBarButtonItem;
     
     self.table.backgroundColor = [UIColor clearColor];
-    [self.table md_setLeftTableViewIndex];
     
     //主题背景
     self.backgroundImg.image = [MDTheme themeContactsBackgroundImage];
     
+    //读取联系人
+    self.sortArray = [MDAsync async_readContacts];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -93,20 +95,43 @@
 // 告诉tableview一共有多少组
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 1;
+    return self.sortArray.count;
 }
 
 //当前组内几行
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    NSArray * sectionArray = self.sortArray[section];
     
-    return self.data.count;
+    return sectionArray.count;
 }
 
 //每行高
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return 95;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    
+    UILabel * sectionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 44)];
+    sectionLabel.backgroundColor = [UIColor clearColor];
+    sectionLabel.text = self.indexArray[section];
+    sectionLabel.textAlignment = NSTextAlignmentCenter;
+    sectionLabel.textColor = [UIColor whiteColor];
+    sectionLabel.font = [UIFont systemFontOfSize:24.0f];
+    return sectionLabel;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    
+    NSArray * sectionArray = self.sortArray[section];
+    if (sectionArray.count == 0) {
+        return 0;
+    }
+    else {
+        return 44;
+    }
 }
 
 //每行内容
@@ -125,7 +150,7 @@
     headImg.tintColor = [UIColor grayColor];
     headImg.image = [[UIImage imageNamed:@"ic_contacts_image_default"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     
-    MDContactsMdl * model = self.data[indexPath.row];
+    MDContactsMdl * model = self.sortArray[indexPath.section][indexPath.row];
     UILabel * nameLabel = (UILabel *)[cell viewWithTag:2000];
     nameLabel.text = model.name;
     
@@ -199,7 +224,11 @@
         model.name = contact.givenName;
         model.phone = phoneNumber.stringValue;
     
+
         [self.data addObject:model];
+        self.sortArray = [self sortObjectsAccordingToInitialWith:[self.data copy]];
+        
+        [MDAsync async_saveContacts:self.sortArray];
     }
     
     [self.table reloadData];
@@ -220,6 +249,68 @@
         _data = [NSMutableArray array];
     }
     return _data;
+}
+
+- (NSMutableArray *)sortArray {
+    
+    if (_sortArray == nil) {
+        _sortArray = [NSMutableArray array];
+    }
+    return _sortArray;
+}
+
+- (NSMutableArray *)indexArray {
+    
+    if (_indexArray == nil) {
+        _indexArray = [NSMutableArray arrayWithObjects:@"A",@"B",@"C",@"D",@"E",@"F",@"G",@"H",@"I",@"J",@"K",@"L",@"M",@"N",@"O",@"P",@"Q",@"R",@"S",@"T",@"U",@"V",@"W",@"X",@"Y",@"Z",@"#", nil];
+    }
+    return _indexArray;
+}
+
+#pragma mark 排序
+// 按首字母分组排序数组
+-(NSMutableArray *)sortObjectsAccordingToInitialWith:(NSArray *)arr {
+    
+    // 初始化UILocalizedIndexedCollation
+    UILocalizedIndexedCollation *collation = [UILocalizedIndexedCollation currentCollation];
+    
+    //得出collation索引的数量，这里是27个（26个字母和1个#）
+    NSInteger sectionTitlesCount = [[collation sectionTitles] count];
+    //初始化一个数组newSectionsArray用来存放最终的数据，我们最终要得到的数据模型应该形如@[@[以A开头的数据数组], @[以B开头的数据数组], @[以C开头的数据数组], ... @[以#(其它)开头的数据数组]]
+    NSMutableArray *newSectionsArray = [[NSMutableArray alloc] initWithCapacity:sectionTitlesCount];
+    
+    //初始化27个空数组加入newSectionsArray
+    for (NSInteger index = 0; index < sectionTitlesCount; index++) {
+        NSMutableArray *array = [[NSMutableArray alloc] init];
+        [newSectionsArray addObject:array];
+    }
+    
+    //将每个名字分到某个section下
+    for (MDContactsMdl * model in arr) {
+        //获取name属性的值所在的位置，比如"林丹"，首字母是L，在A~Z中排第11（第一位是0），sectionNumber就为11
+        NSInteger sectionNumber = [collation sectionForObject:model collationStringSelector:@selector(name)];
+        //把name为“林丹”的p加入newSectionsArray中的第11个数组中去
+        NSMutableArray *sectionNames = newSectionsArray[sectionNumber];
+        [sectionNames addObject:model];
+    }
+    
+    //对每个section中的数组按照name属性排序
+    for (NSInteger index = 0; index < sectionTitlesCount; index++) {
+        NSMutableArray *personArrayForSection = newSectionsArray[index];
+        NSArray *sortedPersonArrayForSection = [collation sortedArrayFromArray:personArrayForSection collationStringSelector:@selector(name)];
+        newSectionsArray[index] = sortedPersonArrayForSection;
+    }
+    
+    //    //删除空的数组
+    //    NSMutableArray *finalArr = [NSMutableArray new];
+    //    for (NSInteger index = 0; index < sectionTitlesCount; index++) {
+    //        if (((NSMutableArray *)(newSectionsArray[index])).count != 0) {
+    //            [finalArr addObject:newSectionsArray[index]];
+    //        }
+    //    }
+    //    return finalArr;
+    
+    return newSectionsArray;
 }
 
 @end

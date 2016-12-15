@@ -26,7 +26,7 @@
 //    }
 //    free(properties);
     
-    NSLog(@"%@",class_getInstanceVariable([self class],"_index"));
+//    NSLog(@"%@",class_getInstanceVariable([self class],"_index"));
 }
 
 @end
