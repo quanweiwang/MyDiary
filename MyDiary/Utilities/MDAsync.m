@@ -89,7 +89,7 @@
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
         // 耗时的操作
-        NSString *path = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES) objectAtIndex:0] stringByAppendingPathComponent:@"contacts.plist"];
+        NSString *path = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES) objectAtIndex:0] stringByAppendingPathComponent:@"contacts.archiver"];
         
         //如果文件不存在
         if ([[NSFileManager defaultManager] fileExistsAtPath:path] == NO)
@@ -102,7 +102,7 @@
         }
         
         NSArray * contactsArray = [contacts copy];
-        [contactsArray writeToFile:path atomically:YES];
+        BOOL a = [NSKeyedArchiver archiveRootObject:contactsArray toFile:path];
         
         dispatch_async(dispatch_get_main_queue(), ^{
             // 更新界面
@@ -116,7 +116,7 @@
 + (NSMutableArray *)async_readContacts {
     
     // 耗时的操作
-    NSString *path = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES) objectAtIndex:0] stringByAppendingPathComponent:@"contacts.plist"];
+    NSString *path = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES) objectAtIndex:0] stringByAppendingPathComponent:@"contacts.archiver"];
     
     //如果文件不存在
     if ([[NSFileManager defaultManager] fileExistsAtPath:path] == NO)

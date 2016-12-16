@@ -23,6 +23,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.title = @"注意事项";
     
     //导航右按钮
     UIBarButtonItem * rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.rightBarBtn];

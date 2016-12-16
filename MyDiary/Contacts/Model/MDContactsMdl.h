@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface MDContactsMdl : NSObject
+@interface MDContactsMdl : NSObject<NSCoding>
 
 @property (strong, nonatomic) NSString * name;
 @property (strong, nonatomic) NSString * phone;

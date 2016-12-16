@@ -27,6 +27,15 @@
 //    free(properties);
     
 //    NSLog(@"%@",class_getInstanceVariable([self class],"_index"));
+
+//    for (id view in self.subviews) {
+//        
+//        if ([view isKindOfClass:NSClassFromString(@"UITableViewIndex")]) {
+//            NSLog(@"1");
+//        }
+//        NSLog(@"%@",view);
+//    }
+
 }
 
 @end

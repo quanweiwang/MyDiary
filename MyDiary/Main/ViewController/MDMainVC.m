@@ -20,6 +20,8 @@
 @property (weak, nonatomic) IBOutlet UIImageView *backgroundImg;//顶部背景图
 @property (weak, nonatomic) IBOutlet UITextField *searchTextField;//底部搜索框
 @property (weak, nonatomic) IBOutlet UIButton *settingBtn;//底部设置按钮
+@property (strong, nonatomic) NSMutableArray * data;//数据源
+@property (strong, nonatomic) NSMutableArray * cellImgArray;//cell左侧图标
 
 @end
 
@@ -122,6 +124,18 @@
                                       reuseIdentifier:cellString];
     }
     
+    //图标
+    UIImageView * img = (UIImageView *)[cell viewWithTag:1000];
+    img.image = [UIImage imageNamed:self.cellImgArray[indexPath.row]];
+    
+    //标题
+    UILabel * titleLabel = (UILabel *)[cell viewWithTag:2000];
+    titleLabel.text = self.data[indexPath.row];
+    
+    //数量
+    UILabel * numberLabel = (UILabel *)[cell viewWithTag:3000];
+    numberLabel.text = @"0";
+    
     return cell;
     
 }
@@ -135,22 +149,24 @@
     if (indexPath.row == 0 ){
         
         UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        MDDiaryMainVC * vc = [sb instantiateViewControllerWithIdentifier:@"MDDiaryMainVC"];
+        MDContactsVC * vc = [sb instantiateViewControllerWithIdentifier:@"MDContactsVC"];
         [self.navigationController pushViewController:vc animated:YES];
-
+        
+        
     }
     else if (indexPath.row == 1){
         
         UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        MDDiaryMainVC * vc = [sb instantiateViewControllerWithIdentifier:@"MDMemoVC"];
-        vc.title = @"测试数据";
+        MDDiaryMainVC * vc = [sb instantiateViewControllerWithIdentifier:@"MDDiaryMainVC"];
         [self.navigationController pushViewController:vc animated:YES];
 
+        
     }
     else{
         
         UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        MDContactsVC * vc = [sb instantiateViewControllerWithIdentifier:@"MDContactsVC"];
+        MDDiaryMainVC * vc = [sb instantiateViewControllerWithIdentifier:@"MDMemoVC"];
+        vc.title = @"测试数据";
         [self.navigationController pushViewController:vc animated:YES];
         
     }
@@ -195,7 +211,7 @@
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    return YES;
+    return NO;
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -237,4 +253,20 @@
     self.nameLabel.text = userName;
 }
 
+#pragma mark 懒加载
+- (NSMutableArray *)data {
+    
+    if (_data == nil) {
+        _data = [NSMutableArray arrayWithObjects:@"紧急联络人",@"我的日记",@"注意事项", nil];
+    }
+    return  _data;
+}
+
+- (NSMutableArray *)cellImgArray {
+    
+    if (_cellImgArray == nil) {
+        _cellImgArray = [NSMutableArray arrayWithObjects:@"ic_topic_contacts",@"ic_topic_diary",@"ic_topic_memo", nil];
+    }
+    return _cellImgArray;
+}
 @end

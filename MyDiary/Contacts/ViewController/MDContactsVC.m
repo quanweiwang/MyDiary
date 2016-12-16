@@ -30,6 +30,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.title = @"紧急联络人";
     
     UIBarButtonItem * rightBarButtonItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"ic_add_white_36dp"] style:UIBarButtonItemStyleDone target:self action:@selector(rightBarButtonItem:)];
     self.navigationItem.rightBarButtonItem = rightBarButtonItem;
