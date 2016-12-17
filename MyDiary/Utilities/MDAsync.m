@@ -8,6 +8,7 @@
 
 #import "MDAsync.h"
 #import "NSObject+SaveImage.h"
+#import "MDContactsMdl.h"
 
 @implementation MDAsync
 
@@ -84,6 +85,7 @@
     
 }
 
+//存储联系人
 + (void)async_saveContacts:(NSMutableArray *)contacts {
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
@@ -101,18 +103,33 @@
             
         }
         
-        NSArray * contactsArray = [contacts copy];
-        BOOL a = [NSKeyedArchiver archiveRootObject:contactsArray toFile:path];
+        //一个疑问 数组的结构是 NSMutableArray->NSMutableArray->MDContactsMdl
+        //那么序列化后取出来 数组结构变成 NSMutableArray->NSArray->MDContactsMdl
+        //啥情况?
+        BOOL isSucceed = [NSKeyedArchiver archiveRootObject:contacts toFile:path];
+        
+        if (isSucceed) {
+            //存储联系人数量
+            [[NSUserDefaults standardUserDefaults] setObject:@(contacts.count) forKey:@"contactsNum"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+        }
         
         dispatch_async(dispatch_get_main_queue(), ^{
             // 更新界面
-            NSLog(@"联系人写入成功");
+            if (isSucceed) {
+                NSLog(@"联系人写入成功");
+            }
+            else{
+                NSLog(@"联系人写入失败");
+            }
+            
         });
     });
     
     
 }
 
+//读取联系人
 + (NSMutableArray *)async_readContacts {
     
     // 耗时的操作
@@ -125,7 +142,8 @@
         return nil;
     }
     
-    NSMutableArray * contacts = [NSMutableArray arrayWithContentsOfFile:path];
+    NSMutableArray * contacts = [NSKeyedUnarchiver unarchiveObjectWithFile:path];
+       
     return contacts;
 }
 

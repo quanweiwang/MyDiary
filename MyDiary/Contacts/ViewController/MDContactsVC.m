@@ -15,10 +15,12 @@
 #import "MDTheme.h"
 #import "MDAsync.h"
 
-@interface MDContactsVC ()<CNContactPickerDelegate,ABPeoplePickerNavigationControllerDelegate>
+@interface MDContactsVC ()<CNContactPickerDelegate,ABPeoplePickerNavigationControllerDelegate,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
+
 @property (weak, nonatomic) IBOutlet UITextField *searchTextField;
 @property (weak, nonatomic) IBOutlet UITableView *table;
 @property (weak, nonatomic) IBOutlet UIImageView *backgroundImg;//背景图片
+@property (weak, nonatomic) IBOutlet UICollectionView *coll;//自定义左侧索引
 
 @property (strong, nonatomic) NSMutableArray * data;
 @property (strong, nonatomic) NSMutableArray * sortArray;
@@ -41,7 +43,8 @@
     self.backgroundImg.image = [MDTheme themeContactsBackgroundImage];
     
     //读取联系人
-    self.sortArray = [MDAsync async_readContacts];
+    self.data = [MDAsync async_readContacts];
+    self.sortArray = [self sortObjectsAccordingToInitialWith:self.data];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -115,13 +118,18 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     
-    UILabel * sectionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 44)];
-    sectionLabel.backgroundColor = [UIColor clearColor];
-    sectionLabel.text = self.indexArray[section];
-    sectionLabel.textAlignment = NSTextAlignmentCenter;
-    sectionLabel.textColor = [UIColor whiteColor];
-    sectionLabel.font = [UIFont systemFontOfSize:24.0f];
-    return sectionLabel;
+    NSArray * sectionArray = self.sortArray[section];
+    if (sectionArray.count > 0) {
+        UILabel * sectionLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 44)];
+        sectionLabel.backgroundColor = [UIColor clearColor];
+        sectionLabel.text = self.indexArray[section];
+        sectionLabel.textAlignment = NSTextAlignmentCenter;
+        sectionLabel.textColor = [UIColor whiteColor];
+        sectionLabel.font = [UIFont systemFontOfSize:24.0f];
+        return sectionLabel;
+    }
+    
+    return nil;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
@@ -172,16 +180,14 @@
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-
-    
 }
 
 - (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     //删除
-    UITableViewRowAction * deleAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDefault title:@" " handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
+    UITableViewRowAction * deleAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDefault title:@"删除" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
         
-        UIAlertController * alertController = [UIAlertController alertControllerWithTitle:@"提示" message:@"将删除该分类下所有项目,且不可恢复\n确定要继续吗" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertController * alertController = [UIAlertController alertControllerWithTitle:@"提示" message:@"确定要删除该联系人吗" preferredStyle:UIAlertControllerStyleAlert];
         
         UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
             tableView.editing = NO;
@@ -190,8 +196,26 @@
         UIAlertAction * exitAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
             
             tableView.editing = NO;
-            NSLog(@"删除");
             
+            MDContactsMdl * model = self.sortArray[indexPath.section][indexPath.row];
+            if ([self.data containsObject:model]) {
+                
+                [self.data removeObject:model];
+                //数据更新
+                [MDAsync async_saveContacts:self.data];
+            }
+            
+            NSMutableArray * contacts = self.sortArray[indexPath.section];
+            if ([contacts containsObject:model]) {
+                [contacts removeObject:model];
+                
+                [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+            }
+            
+            //如果该分组下 都没有数据 刷新下该组 把组头隐藏掉
+            if (contacts.count == 0) {
+                [tableView reloadSections:[[NSIndexSet alloc] initWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationAutomatic];
+            }
         }];
         
         [alertController addAction:cancelAction];
@@ -199,7 +223,8 @@
         
         [self presentViewController:alertController animated:YES completion:nil];
     }];
-       
+    deleAction.backgroundColor = [UIColor clearColor];
+    
     return @[deleAction];
 }
 
@@ -208,9 +233,47 @@
     return YES;
 }
 
--(NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView
-{
-    return [NSArray arrayWithObjects:UITableViewIndexSearch,@"A",@"B",@"C",@"D",@"E",@"F",@"G",@"H",@"I",@"J",@"K",@"L",@"M",@"N",@"O",@"P",@"Q",@"R",@"S",@"T",@"U",@"V",@"W",@"X",@"Y",@"Z",@"#", nil];
+#pragma mark UICollectionView相关
+
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
+    return 1;
+}
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    return self.indexArray.count;
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    
+    NSString * cellString = @"coll";
+    
+    UICollectionViewCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:cellString forIndexPath:indexPath];
+    
+    UILabel * indexLabel = (UILabel *)[cell viewWithTag:1000];
+    indexLabel.text = self.indexArray[indexPath.row];
+    
+    return cell;
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    
+    //判断点击分组 是否存在内容
+    NSMutableArray * contacts = self.sortArray[indexPath.row];
+    if (contacts.count > 0) {
+        
+        NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:0 inSection:indexPath.row];
+        [self.table scrollToRowAtIndexPath:scrollIndexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
+    }
+    
+}
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+    
+    CGFloat width = 15.0;
+    CGFloat height = (collectionView.frame.size.height - 100) / 27;
+    
+    return CGSizeMake(width, height);
+    
 }
 
 #pragma mark CNContactPickerDelegate 相关
@@ -224,12 +287,15 @@
         MDContactsMdl * model = [[MDContactsMdl alloc] init];
         model.name = contact.givenName;
         model.phone = phoneNumber.stringValue;
-    
+        
+        NSMutableDictionary * contactsDic = [NSMutableDictionary dictionary];
+        [contactsDic setObject:contact.givenName forKey:@"name"];
+        [contactsDic setObject:phoneNumber.stringValue forKey:@"phone"];
 
         [self.data addObject:model];
         self.sortArray = [self sortObjectsAccordingToInitialWith:[self.data copy]];
         
-        [MDAsync async_saveContacts:self.sortArray];
+        [MDAsync async_saveContacts:self.data];
     }
     
     [self.table reloadData];
@@ -277,6 +343,7 @@
     
     //得出collation索引的数量，这里是27个（26个字母和1个#）
     NSInteger sectionTitlesCount = [[collation sectionTitles] count];
+    
     //初始化一个数组newSectionsArray用来存放最终的数据，我们最终要得到的数据模型应该形如@[@[以A开头的数据数组], @[以B开头的数据数组], @[以C开头的数据数组], ... @[以#(其它)开头的数据数组]]
     NSMutableArray *newSectionsArray = [[NSMutableArray alloc] initWithCapacity:sectionTitlesCount];
     
@@ -299,17 +366,8 @@
     for (NSInteger index = 0; index < sectionTitlesCount; index++) {
         NSMutableArray *personArrayForSection = newSectionsArray[index];
         NSArray *sortedPersonArrayForSection = [collation sortedArrayFromArray:personArrayForSection collationStringSelector:@selector(name)];
-        newSectionsArray[index] = sortedPersonArrayForSection;
+        newSectionsArray[index] = [NSMutableArray arrayWithArray:sortedPersonArrayForSection] ;
     }
-    
-    //    //删除空的数组
-    //    NSMutableArray *finalArr = [NSMutableArray new];
-    //    for (NSInteger index = 0; index < sectionTitlesCount; index++) {
-    //        if (((NSMutableArray *)(newSectionsArray[index])).count != 0) {
-    //            [finalArr addObject:newSectionsArray[index]];
-    //        }
-    //    }
-    //    return finalArr;
     
     return newSectionsArray;
 }

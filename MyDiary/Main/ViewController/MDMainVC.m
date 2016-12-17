@@ -134,7 +134,22 @@
     
     //数量
     UILabel * numberLabel = (UILabel *)[cell viewWithTag:3000];
-    numberLabel.text = @"0";
+    if (indexPath.row == 0) {
+        //联系人数量
+        NSNumber * contactsNum = [[NSUserDefaults standardUserDefaults] objectForKey:@"contactsNum"];
+        numberLabel.text = contactsNum == nil ? @"0" : [contactsNum stringValue];
+    }
+    else if (indexPath.row == 1) {
+        //日记数量
+        NSNumber * diaryNum = [[NSUserDefaults standardUserDefaults] objectForKey:@"diaryNum"];
+        numberLabel.text = diaryNum == nil ? @"0" : [diaryNum stringValue];
+    }
+    else{
+        //注意事项数量
+        NSNumber * memoNum = [[NSUserDefaults standardUserDefaults] objectForKey:@"memoNum"];
+        numberLabel.text = memoNum == nil ? @"0" : [memoNum stringValue];
+    }
+    
     
     return cell;
     
