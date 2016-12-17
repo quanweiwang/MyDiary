@@ -14,8 +14,9 @@
 #import "MDContactsMdl.h"
 #import "MDTheme.h"
 #import "MDAsync.h"
+#import "MDAddContactsVC.h"
 
-@interface MDContactsVC ()<CNContactPickerDelegate,ABPeoplePickerNavigationControllerDelegate,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
+@interface MDContactsVC ()<CNContactPickerDelegate,ABPeoplePickerNavigationControllerDelegate,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,MDAddContactsDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *searchTextField;
 @property (weak, nonatomic) IBOutlet UITableView *table;
@@ -59,7 +60,14 @@
     
     UIAlertAction * addAction = [UIAlertAction actionWithTitle:@"添加" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         
-        
+        UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        MDAddContactsVC * vc = [sb instantiateViewControllerWithIdentifier:@"MDAddContactsVC"];
+        vc.providesPresentationContextTransitionStyle = YES;
+        vc.definesPresentationContext = YES;
+        vc.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+        vc.delegate = self;
+        [self presentViewController:vc animated:NO completion:nil];
+
         
     }];
     
@@ -270,7 +278,7 @@
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     
     CGFloat width = 15.0;
-    CGFloat height = (collectionView.frame.size.height - 100) / 27;
+    CGFloat height = collectionView.frame.size.height / 27;
     
     return CGSizeMake(width, height);
     
@@ -371,5 +379,18 @@
     
     return newSectionsArray;
 }
+
+#pragma mark MDAddContactsDelegate
+- (void)addContacts:(MDContactsMdl *)contactsMdl {
+    
+    if ([self.data containsObject:contactsMdl] == NO) {
+        
+        [self.data addObject:contactsMdl];
+        self.sortArray = [self sortObjectsAccordingToInitialWith:self.data];
+        [MDAsync async_saveContacts:self.data];
+        [self.table reloadData];
+    }
+}
+
 
 @end

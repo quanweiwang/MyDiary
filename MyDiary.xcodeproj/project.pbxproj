@@ -33,6 +33,7 @@
 		D6C372831DF7F16600C8C544 /* MDMemoMdl.m in Sources */ = {isa = PBXBuildFile; fileRef = D6C372821DF7F16600C8C544 /* MDMemoMdl.m */; };
 		D6D05D2C1E017ADB00F3484F /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6D05D2B1E017ADB00F3484F /* AddressBook.framework */; };
 		D6D05D2E1E017AE000F3484F /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6D05D2D1E017AE000F3484F /* AddressBookUI.framework */; };
+		D6D4421C1E054A080034FBCA /* MDAddContactsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = D6D4421B1E054A080034FBCA /* MDAddContactsVC.m */; };
 		D6E3EC531DFA3D4200188A4D /* MDEditUserProfileVC.m in Sources */ = {isa = PBXBuildFile; fileRef = D6E3EC521DFA3D4200188A4D /* MDEditUserProfileVC.m */; };
 		D6E3EC571DFA9E0C00188A4D /* UIImage+MyDiary.m in Sources */ = {isa = PBXBuildFile; fileRef = D6E3EC561DFA9E0C00188A4D /* UIImage+MyDiary.m */; };
 		D6E3EC5A1DFAA41300188A4D /* BaseNav.m in Sources */ = {isa = PBXBuildFile; fileRef = D6E3EC591DFAA41300188A4D /* BaseNav.m */; };
@@ -108,6 +109,8 @@
 		D6C372821DF7F16600C8C544 /* MDMemoMdl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDMemoMdl.m; path = Memo/Model/MDMemoMdl.m; sourceTree = "<group>"; };
 		D6D05D2B1E017ADB00F3484F /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		D6D05D2D1E017AE000F3484F /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
+		D6D4421A1E054A080034FBCA /* MDAddContactsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDAddContactsVC.h; path = Contacts/ViewController/MDAddContactsVC.h; sourceTree = "<group>"; };
+		D6D4421B1E054A080034FBCA /* MDAddContactsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDAddContactsVC.m; path = Contacts/ViewController/MDAddContactsVC.m; sourceTree = "<group>"; };
 		D6E3EC511DFA3D4200188A4D /* MDEditUserProfileVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDEditUserProfileVC.h; path = Main/ViewController/MDEditUserProfileVC.h; sourceTree = "<group>"; };
 		D6E3EC521DFA3D4200188A4D /* MDEditUserProfileVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDEditUserProfileVC.m; path = Main/ViewController/MDEditUserProfileVC.m; sourceTree = "<group>"; };
 		D6E3EC551DFA9E0C00188A4D /* UIImage+MyDiary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImage+MyDiary.h"; path = "Category/UIImage+MyDiary.h"; sourceTree = "<group>"; };
@@ -214,6 +217,8 @@
 			children = (
 				D66C83EC1E0147E600333213 /* MDContactsVC.h */,
 				D66C83ED1E0147E600333213 /* MDContactsVC.m */,
+				D6D4421A1E054A080034FBCA /* MDAddContactsVC.h */,
+				D6D4421B1E054A080034FBCA /* MDAddContactsVC.m */,
 			);
 			name = ViewController;
 			sourceTree = "<group>";
@@ -424,14 +429,6 @@
 			name = Model;
 			sourceTree = "<group>";
 		};
-		D6ECEDC91DFE9E7900A6648C /* QWTextView */ = {
-			isa = PBXGroup;
-			children = (
-				D6ECEDCA1DFE9EA300A6648C /* QWTextView */,
-			);
-			name = QWTextView;
-			sourceTree = "<group>";
-		};
 		D6ECEDCA1DFE9EA300A6648C /* QWTextView */ = {
 			isa = PBXGroup;
 			children = (
@@ -445,7 +442,7 @@
 		D6F818171DFAE40900AFFFD4 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
-				D6ECEDC91DFE9E7900A6648C /* QWTextView */,
+				D6ECEDCA1DFE9EA300A6648C /* QWTextView */,
 				D6F818181DFAE49300AFFFD4 /* MDAsync.h */,
 				D6F818191DFAE49300AFFFD4 /* MDAsync.m */,
 			);
@@ -647,6 +644,7 @@
 				D6C3722A1DF7B11C00C8C544 /* MDAppDelegate.m in Sources */,
 				D60996F31DFD124B005B6880 /* BaseVC.m in Sources */,
 				D6F8181A1DFAE49300AFFFD4 /* MDAsync.m in Sources */,
+				D6D4421C1E054A080034FBCA /* MDAddContactsVC.m in Sources */,
 				D6C372741DF7E50000C8C544 /* MDMemoVC.m in Sources */,
 				D6C372631DF7B2CB00C8C544 /* MDMainVC.m in Sources */,
 				D6E3EC531DFA3D4200188A4D /* MDEditUserProfileVC.m in Sources */,
