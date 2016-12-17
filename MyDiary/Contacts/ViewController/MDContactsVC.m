@@ -215,6 +215,10 @@
                 [self.data removeObject:model];
                 //数据更新
                 [MDAsync async_saveContacts:self.data];
+                
+                //更新联系人数量
+                [self updateContactsNum];
+
             }
             
             NSMutableArray * contacts = self.sortArray[indexPath.section];
@@ -306,6 +310,10 @@
             self.sortArray = [self sortObjectsAccordingToInitialWith:[self.data copy]];
             
             [MDAsync async_saveContacts:self.data];
+            
+            //更新联系人数量
+            [self updateContactsNum];
+            
             [self.table reloadData];
         }
     }
@@ -392,9 +400,19 @@
         [self.data addObject:contactsMdl];
         self.sortArray = [self sortObjectsAccordingToInitialWith:self.data];
         [MDAsync async_saveContacts:self.data];
+        
+        //更新联系人数量
+        [self updateContactsNum];
+        
         [self.table reloadData];
     }
 }
 
+#pragma mark Update ContactsNum
+- (void) updateContactsNum {
+    
+    //通知外部更新数量
+    [self.delegate updateContactsNumber:[NSString stringWithFormat:@"%ld",(unsigned long)self.data.count]];
+}
 
 @end

@@ -8,6 +8,13 @@
 
 #import "BaseTableVC.h"
 
+@protocol MDContactsDelegate <NSObject>
+
+- (void) updateContactsNumber:(NSString *) contactsNum;
+
+@end
+
 @interface MDContactsVC : BaseTableVC
+@property (assign, nonatomic) id<MDContactsDelegate> delegate;
 
 @end

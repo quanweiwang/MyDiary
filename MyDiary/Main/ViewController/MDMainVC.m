@@ -13,15 +13,19 @@
 #import "MDAsync.h"
 #import "MDContactsVC.h"
 
-@interface MDMainVC ()<UITableViewDelegate,UITableViewDataSource,MDEditUserDelegate>
+@interface MDMainVC ()<UITableViewDelegate,UITableViewDataSource,MDEditUserDelegate,MDContactsDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *table;
 @property (weak, nonatomic) IBOutlet UIButton *headBtn;//头像按钮
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;//名字
 @property (weak, nonatomic) IBOutlet UIImageView *backgroundImg;//顶部背景图
 @property (weak, nonatomic) IBOutlet UITextField *searchTextField;//底部搜索框
 @property (weak, nonatomic) IBOutlet UIButton *settingBtn;//底部设置按钮
+
 @property (strong, nonatomic) NSMutableArray * data;//数据源
 @property (strong, nonatomic) NSMutableArray * cellImgArray;//cell左侧图标
+@property (strong, nonatomic) NSString * contactsNum; //联系人数量
+@property (strong, nonatomic) NSString * diaryNum; //日记数量
+@property (strong, nonatomic) NSString * memoNum; //注意事项数量
 
 @end
 
@@ -55,6 +59,20 @@
     
     //主题变更通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(themeChangeNotification:) name:@"kMDThemeChangeNotification" object:nil];
+    
+    //联系人数量
+    NSNumber * contactsNumber = [[NSUserDefaults standardUserDefaults] objectForKey:@"contactsNum"];
+    self.contactsNum = contactsNumber == nil ? @"0" : [contactsNumber stringValue];
+    
+    //日记数量
+    NSNumber * diaryNumber = [[NSUserDefaults standardUserDefaults] objectForKey:@"diaryNum"];
+    self.diaryNum = diaryNumber == nil ? @"0" : [diaryNumber stringValue];
+
+    //注意事项数量
+    NSNumber * memoNumber = [[NSUserDefaults standardUserDefaults] objectForKey:@"memoNum"];
+    self.memoNum = memoNumber == nil ? @"0" : [memoNumber stringValue];
+    
+
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -136,18 +154,15 @@
     UILabel * numberLabel = (UILabel *)[cell viewWithTag:3000];
     if (indexPath.row == 0) {
         //联系人数量
-        NSNumber * contactsNum = [[NSUserDefaults standardUserDefaults] objectForKey:@"contactsNum"];
-        numberLabel.text = contactsNum == nil ? @"0" : [contactsNum stringValue];
+        numberLabel.text = self.contactsNum;
     }
     else if (indexPath.row == 1) {
         //日记数量
-        NSNumber * diaryNum = [[NSUserDefaults standardUserDefaults] objectForKey:@"diaryNum"];
-        numberLabel.text = diaryNum == nil ? @"0" : [diaryNum stringValue];
+        numberLabel.text = self.diaryNum;
     }
     else{
         //注意事项数量
-        NSNumber * memoNum = [[NSUserDefaults standardUserDefaults] objectForKey:@"memoNum"];
-        numberLabel.text = memoNum == nil ? @"0" : [memoNum stringValue];
+        numberLabel.text = self.memoNum;
     }
     
     
@@ -165,6 +180,7 @@
         
         UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         MDContactsVC * vc = [sb instantiateViewControllerWithIdentifier:@"MDContactsVC"];
+        vc.delegate = self;
         [self.navigationController pushViewController:vc animated:YES];
         
         
@@ -283,5 +299,15 @@
         _cellImgArray = [NSMutableArray arrayWithObjects:@"ic_topic_contacts",@"ic_topic_diary",@"ic_topic_memo", nil];
     }
     return _cellImgArray;
+}
+
+#pragma mark MDContactsDelegate
+- (void)updateContactsNumber:(NSString *)contactsNum {
+    
+    self.contactsNum = contactsNum;
+    
+    NSIndexPath * indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+    [self.table reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+    
 }
 @end
