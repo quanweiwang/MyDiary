@@ -185,9 +185,13 @@
 //点击
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
+    NSArray * contacts = self.sortArray[indexPath.section];
+    MDContactsMdl * model = contacts[indexPath.row];
+    
+    NSString * phone = [NSString stringWithFormat:@"telprompt://%@",model.phone];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:phone]];
 }
 
 - (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -294,19 +298,19 @@
         
         MDContactsMdl * model = [[MDContactsMdl alloc] init];
         model.name = contact.givenName;
-        model.phone = phoneNumber.stringValue;
+        model.phone = [[[[phoneNumber.stringValue stringByReplacingOccurrencesOfString:@"-" withString:@""] stringByReplacingOccurrencesOfString:@"(" withString:@""] stringByReplacingOccurrencesOfString:@")" withString:@""] stringByReplacingOccurrencesOfString:@" " withString:@""];
         
-        NSMutableDictionary * contactsDic = [NSMutableDictionary dictionary];
-        [contactsDic setObject:contact.givenName forKey:@"name"];
-        [contactsDic setObject:phoneNumber.stringValue forKey:@"phone"];
-
-        [self.data addObject:model];
-        self.sortArray = [self sortObjectsAccordingToInitialWith:[self.data copy]];
-        
-        [MDAsync async_saveContacts:self.data];
+        //联系人去重
+        if ([self.data containsObject:model] == NO) {
+            [self.data addObject:model];
+            self.sortArray = [self sortObjectsAccordingToInitialWith:[self.data copy]];
+            
+            [MDAsync async_saveContacts:self.data];
+            [self.table reloadData];
+        }
     }
     
-    [self.table reloadData];
+    
 }
 
 
