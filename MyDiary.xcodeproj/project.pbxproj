@@ -20,6 +20,7 @@
 		D66C83E81E0143F400333213 /* ContactsUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D66C83E71E0143F400333213 /* ContactsUI.framework */; };
 		D66C83EE1E0147E600333213 /* MDContactsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = D66C83ED1E0147E600333213 /* MDContactsVC.m */; };
 		D66C83F11E01484400333213 /* MDContactsMdl.m in Sources */ = {isa = PBXBuildFile; fileRef = D66C83F01E01484400333213 /* MDContactsMdl.m */; };
+		D6ACB0D91E06BC7200A004B3 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6ACB0D81E06BC7200A004B3 /* CoreLocation.framework */; };
 		D6C372271DF7B11C00C8C544 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D6C372261DF7B11C00C8C544 /* main.m */; };
 		D6C3722A1DF7B11C00C8C544 /* MDAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D6C372291DF7B11C00C8C544 /* MDAppDelegate.m */; };
 		D6C372301DF7B11C00C8C544 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D6C3722E1DF7B11C00C8C544 /* Main.storyboard */; };
@@ -85,6 +86,7 @@
 		D66C83ED1E0147E600333213 /* MDContactsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDContactsVC.m; path = Contacts/ViewController/MDContactsVC.m; sourceTree = "<group>"; };
 		D66C83EF1E01484400333213 /* MDContactsMdl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDContactsMdl.h; path = Contacts/Model/MDContactsMdl.h; sourceTree = "<group>"; };
 		D66C83F01E01484400333213 /* MDContactsMdl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDContactsMdl.m; path = Contacts/Model/MDContactsMdl.m; sourceTree = "<group>"; };
+		D6ACB0D81E06BC7200A004B3 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		D6C372221DF7B11C00C8C544 /* MyDiary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyDiary.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D6C372261DF7B11C00C8C544 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		D6C372281DF7B11C00C8C544 /* MDAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MDAppDelegate.h; sourceTree = "<group>"; };
@@ -130,6 +132,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D6ACB0D91E06BC7200A004B3 /* CoreLocation.framework in Frameworks */,
 				D6D05D2E1E017AE000F3484F /* AddressBookUI.framework in Frameworks */,
 				D6D05D2C1E017ADB00F3484F /* AddressBook.framework in Frameworks */,
 				D66C83E81E0143F400333213 /* ContactsUI.framework in Frameworks */,
@@ -158,6 +161,7 @@
 		1630596FBDC49A0BE9476EFD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D6ACB0D81E06BC7200A004B3 /* CoreLocation.framework */,
 				D6D05D2D1E017AE000F3484F /* AddressBookUI.framework */,
 				D6D05D2B1E017ADB00F3484F /* AddressBook.framework */,
 				D66C83E71E0143F400333213 /* ContactsUI.framework */,

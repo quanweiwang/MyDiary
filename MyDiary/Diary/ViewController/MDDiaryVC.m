@@ -9,8 +9,9 @@
 #import "MDDiaryVC.h"
 #import "QWTextView.h"
 #import "MDTheme.h"
+#import <CoreLocation/CoreLocation.h>
 
-@interface MDDiaryVC ()<UINavigationControllerDelegate,UIImagePickerControllerDelegate>
+@interface MDDiaryVC ()<UINavigationControllerDelegate,UIImagePickerControllerDelegate,CLLocationManagerDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *monthLabel;//月份
 @property (weak, nonatomic) IBOutlet UILabel *dayLabel;//天
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;//星期 时间
@@ -27,7 +28,8 @@
 @property (weak, nonatomic) IBOutlet UIView *headView;//顶部视图
 @property (weak, nonatomic) IBOutlet UIView *diaryLineView;//日记分割线
 
-@property (strong, nonatomic) UIImagePickerController * picker;// 相册&拍照
+@property (strong, nonatomic) UIImagePickerController * picker;//相册&拍照
+@property (nonatomic, strong) CLLocationManager* locationManager;//定位
 
 @end
 
@@ -61,6 +63,8 @@
     [self.cleanBtn addTarget:self action:@selector(cleanBtn:) forControlEvents:UIControlEventTouchUpInside];
     //保存按钮
     [self.saveBtn addTarget:self action:@selector(saveBtn:) forControlEvents:UIControlEventTouchUpInside];
+    
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -81,6 +85,28 @@
 - (void) locationBtn:(UIButton *)btn {
     
     btn.selected = !btn.selected;
+    
+    if (btn.selected == YES) {
+        
+        if (self.locationManager == nil) {
+            self.locationManager = [[CLLocationManager alloc] init];
+            self.locationManager.delegate = self;
+            //最低精度即可
+            self.locationManager.desiredAccuracy = kCLLocationAccuracyThreeKilometers;
+            
+            if ([self.locationManager respondsToSelector:@selector(requestAlwaysAuthorization)]) {
+                NSLog(@"requestAlwaysAuthorization");
+                [self.locationManager requestAlwaysAuthorization];
+            }
+        }
+        //开始定位，不断调用其代理方法
+        [self.locationManager startUpdatingLocation];
+
+    }
+    else{
+        //停止定位
+        [self.locationManager stopUpdatingHeading];
+    }
 }
 //相机按钮
 - (void) cameraBtn:(UIButton *)btn {
@@ -201,4 +227,23 @@
     return _picker;
 }
 
+#pragma mark 定位相关
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
+{
+    // 1.获取用户位置的对象
+    CLLocation *location = [locations lastObject];
+    CLLocationCoordinate2D coordinate = location.coordinate;
+    NSLog(@"纬度:%f 经度:%f", coordinate.latitude, coordinate.longitude);
+    
+        
+    // 2.停止定位
+    [manager stopUpdatingLocation];
+}
+
+- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
+{
+    if (error.code == kCLErrorDenied) {
+        // 提示用户出错原因，可按住Option键点击 KCLErrorDenied的查看更多出错信息，可打印error.code值查找原因所在
+    }
+}
 @end

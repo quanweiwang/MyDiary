@@ -106,7 +106,8 @@
                                       reuseIdentifier:cellString];
     }
     
-
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    
     return cell;
     
 }
