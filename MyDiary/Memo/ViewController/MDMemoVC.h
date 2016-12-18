@@ -8,6 +8,14 @@
 
 #import "BaseTableVC.h"
 
+@protocol MDMemoDelegate <NSObject>
+
+- (void) updateMemoNumber:(NSString *) memoNum;
+
+@end
+
 @interface MDMemoVC : BaseTableVC
+
+@property (assign, nonatomic) id<MDMemoDelegate> delegate;
 
 @end
