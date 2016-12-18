@@ -47,6 +47,8 @@
     self.mainScrollView.pagingEnabled = YES;
     self.mainScrollView.showsVerticalScrollIndicator = NO;
     self.mainScrollView.showsHorizontalScrollIndicator = NO;
+    self.mainScrollView.bounces = NO;
+    self.mainScrollView.scrollEnabled = NO;
     
     //初始化子视图
     UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
