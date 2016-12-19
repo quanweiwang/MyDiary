@@ -15,7 +15,7 @@
 + (void)async_saveUserInfo:(UIImage *) userHeadImage userName:(NSString *) userName;
 
 //存储备忘录
-+ (void)async_saveMemo:(NSString *)memo;
++ (void)async_saveMemo:(NSMutableArray *)memo;
 
 //存储联系人
 + (void)async_saveContacts:(NSMutableArray *)contacts;
@@ -23,4 +23,6 @@
 //读取联系人
 + (NSMutableArray *)async_readContacts;
 
+//读取备忘录
++ (NSMutableArray *)async_readMemo;
 @end

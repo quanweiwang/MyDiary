@@ -59,12 +59,12 @@
     
 }
 
-+ (void)async_saveMemo:(NSString *)memo {
++ (void)async_saveMemo:(NSMutableArray *)memo {
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
         // 耗时的操作
-        NSString *path = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES) objectAtIndex:0] stringByAppendingPathComponent:@"Memo/memo.plist"];
+        NSString *path = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES) objectAtIndex:0] stringByAppendingPathComponent:@"memo.archiver"];
         
         //如果文件不存在
         if ([[NSFileManager defaultManager] fileExistsAtPath:path] == NO)
@@ -75,12 +75,26 @@
             [fileManager createFileAtPath:path contents:nil attributes:nil];
             
         }
-
+        
+        BOOL isSucceed = [NSKeyedArchiver archiveRootObject:memo toFile:path];
+        
+        if (isSucceed) {
+            //存储联系人数量
+            [[NSUserDefaults standardUserDefaults] setObject:@(memo.count) forKey:@"memoNum"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+        }
         
         dispatch_async(dispatch_get_main_queue(), ^{
             // 更新界面
-            NSLog(@"备忘录写入成功");
+            if (isSucceed) {
+                NSLog(@"备忘录写入成功");
+            }
+            else{
+                NSLog(@"备忘录写入失败");
+            }
+            
         });
+        
     });
     
 }
@@ -103,9 +117,6 @@
             
         }
         
-        //一个疑问 数组的结构是 NSMutableArray->NSMutableArray->MDContactsMdl
-        //那么序列化后取出来 数组结构变成 NSMutableArray->NSArray->MDContactsMdl
-        //啥情况?
         BOOL isSucceed = [NSKeyedArchiver archiveRootObject:contacts toFile:path];
         
         if (isSucceed) {
@@ -146,5 +157,24 @@
        
     return contacts;
 }
+
+//读取备忘录
++ (NSMutableArray *)async_readMemo {
+    
+    // 耗时的操作
+    NSString *path = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES) objectAtIndex:0] stringByAppendingPathComponent:@"memo.archiver"];
+    
+    //如果文件不存在
+    if ([[NSFileManager defaultManager] fileExistsAtPath:path] == NO)
+        
+    {
+        return nil;
+    }
+    
+    NSMutableArray * memo = [NSKeyedUnarchiver unarchiveObjectWithFile:path];
+    
+    return memo;
+}
+
 
 @end

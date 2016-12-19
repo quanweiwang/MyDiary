@@ -10,4 +10,6 @@
 
 @interface BaseTableVC : BaseVC<UITableViewDelegate,UITableViewDataSource>
 
+- (void)navBackBtn:(UIBarButtonItem *)item;
+
 @end

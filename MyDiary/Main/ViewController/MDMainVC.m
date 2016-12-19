@@ -12,8 +12,10 @@
 #import "MDEditUserProfileVC.h"
 #import "MDAsync.h"
 #import "MDContactsVC.h"
+#import "MDMemoVC.h"
 
-@interface MDMainVC ()<UITableViewDelegate,UITableViewDataSource,MDEditUserDelegate,MDContactsDelegate>
+@interface MDMainVC ()<UITableViewDelegate,UITableViewDataSource,MDEditUserDelegate,MDContactsDelegate,MDMemoDelegate>
+
 @property (weak, nonatomic) IBOutlet UITableView *table;
 @property (weak, nonatomic) IBOutlet UIButton *headBtn;//头像按钮
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;//名字
@@ -196,8 +198,8 @@
     else{
         
         UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        MDDiaryMainVC * vc = [sb instantiateViewControllerWithIdentifier:@"MDMemoVC"];
-        vc.title = @"测试数据";
+        MDMemoVC * vc = [sb instantiateViewControllerWithIdentifier:@"MDMemoVC"];
+        vc.delegate = self;
         [self.navigationController pushViewController:vc animated:YES];
         
     }
@@ -310,4 +312,14 @@
     [self.table reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
     
 }
+
+#pragma mark MDMemoDelegate
+- (void)updateMemoNumber:(NSString *)memoNum {
+    
+    self.memoNum = memoNum;
+    
+    NSIndexPath * indexPath = [NSIndexPath indexPathForRow:2 inSection:0];
+    [self.table reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+}
+
 @end

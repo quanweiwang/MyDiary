@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface MDMemoMdl : NSObject
+@interface MDMemoMdl : NSObject<NSCoding>
 @property (assign, nonatomic) NSInteger memoState;//便签状态 0正常 1结束
 @property (strong, nonatomic) NSString * memoString;//便签内容
 @end

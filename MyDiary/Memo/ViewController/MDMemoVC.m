@@ -10,6 +10,7 @@
 #import "MDMemoMdl.h"
 #import "MDTheme.h"
 #import "MDAddMemoVC.h"
+#import "MDAsync.h"
 
 @interface MDMemoVC ()<MDAddMemoDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *table;
@@ -29,10 +30,8 @@
     UIBarButtonItem * rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.rightBarBtn];
     self.navigationItem.rightBarButtonItem = rightBarButtonItem;
     
-    MDMemoMdl * model = [[MDMemoMdl alloc] init];
-    model.memoState = 0;
-    model.memoString = @"aaaaa";
-    [self.data addObject:model];
+    //读取备忘录
+    self.data = [MDAsync async_readMemo];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -47,6 +46,14 @@
     MDAddMemoVC * vc = [sb instantiateViewControllerWithIdentifier:@"MDAddMemoVC"];
     vc.delegate = self;
     [self presentViewController:vc animated:YES completion:nil];
+}
+
+- (void)navBackBtn:(UIBarButtonItem *)item {
+    
+    [self.delegate updateMemoNumber:[NSString stringWithFormat:@"%ld",(unsigned long)self.data.count]];
+    [MDAsync async_saveMemo:self.data];
+    
+    [super navBackBtn:item];
 }
 
 #pragma mark Table view data source

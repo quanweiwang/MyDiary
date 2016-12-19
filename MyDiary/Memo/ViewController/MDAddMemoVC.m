@@ -103,8 +103,6 @@
         [self.delegate editMemo:model indexPath:self.indexPath];
     }
     else{
-        //异步存储
-        [MDAsync async_saveMemo:self.memoTextView.text];
         
         [self.delegate addMemo:model];
 
