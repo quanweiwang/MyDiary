@@ -10,6 +10,7 @@
 		6F86EB547E1BA1DBB74224CB /* libPods-MyDiary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C162C306D679F890D4794B83 /* libPods-MyDiary.a */; };
 		D60996F01DFCFAFC005B6880 /* MDAddMemoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = D60996EF1DFCFAFC005B6880 /* MDAddMemoVC.m */; };
 		D60996F31DFD124B005B6880 /* BaseVC.m in Sources */ = {isa = PBXBuildFile; fileRef = D60996F21DFD124B005B6880 /* BaseVC.m */; };
+		D63CF5051E096A4000AF0491 /* MDDiaryDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = D63CF5041E096A4000AF0491 /* MDDiaryDetailVC.m */; };
 		D646933E1E018EA000138ABB /* UITableView+TableViewIndex.m in Sources */ = {isa = PBXBuildFile; fileRef = D646933D1E018EA000138ABB /* UITableView+TableViewIndex.m */; };
 		D6490D751DF844770068BE61 /* MDTheme.m in Sources */ = {isa = PBXBuildFile; fileRef = D6490D741DF844770068BE61 /* MDTheme.m */; };
 		D6490D7E1DF850540068BE61 /* MDDiaryMainVC.m in Sources */ = {isa = PBXBuildFile; fileRef = D6490D7D1DF850540068BE61 /* MDDiaryMainVC.m */; };
@@ -68,6 +69,8 @@
 		D60996EF1DFCFAFC005B6880 /* MDAddMemoVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDAddMemoVC.m; path = Memo/ViewController/MDAddMemoVC.m; sourceTree = "<group>"; };
 		D60996F11DFD124B005B6880 /* BaseVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BaseVC.h; path = BaseClass/BaseVC.h; sourceTree = "<group>"; };
 		D60996F21DFD124B005B6880 /* BaseVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BaseVC.m; path = BaseClass/BaseVC.m; sourceTree = "<group>"; };
+		D63CF5031E096A4000AF0491 /* MDDiaryDetailVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDDiaryDetailVC.h; path = Diary/ViewController/MDDiaryDetailVC.h; sourceTree = "<group>"; };
+		D63CF5041E096A4000AF0491 /* MDDiaryDetailVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDDiaryDetailVC.m; path = Diary/ViewController/MDDiaryDetailVC.m; sourceTree = "<group>"; };
 		D646933C1E018EA000138ABB /* UITableView+TableViewIndex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UITableView+TableViewIndex.h"; path = "Category/UITableView+TableViewIndex.h"; sourceTree = "<group>"; };
 		D646933D1E018EA000138ABB /* UITableView+TableViewIndex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UITableView+TableViewIndex.m"; path = "Category/UITableView+TableViewIndex.m"; sourceTree = "<group>"; };
 		D6490D731DF844770068BE61 /* MDTheme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDTheme.h; path = Theme/MDTheme.h; sourceTree = "<group>"; };
@@ -191,6 +194,8 @@
 				D6490D831DF853930068BE61 /* MDCalendarVC.m */,
 				D6490D851DF853AB0068BE61 /* MDDiaryVC.h */,
 				D6490D861DF853AB0068BE61 /* MDDiaryVC.m */,
+				D63CF5031E096A4000AF0491 /* MDDiaryDetailVC.h */,
+				D63CF5041E096A4000AF0491 /* MDDiaryDetailVC.m */,
 			);
 			name = ViewController;
 			sourceTree = "<group>";
@@ -659,6 +664,7 @@
 				D6C372271DF7B11C00C8C544 /* main.m in Sources */,
 				D6490D871DF853AB0068BE61 /* MDDiaryVC.m in Sources */,
 				D6ECEDCD1DFE9EA300A6648C /* QWTextView.m in Sources */,
+				D63CF5051E096A4000AF0491 /* MDDiaryDetailVC.m in Sources */,
 				D6C372701DF7DFB500C8C544 /* BaseTableVC.m in Sources */,
 				D66C83F11E01484400333213 /* MDContactsMdl.m in Sources */,
 				D6E3EC5A1DFAA41300188A4D /* BaseNav.m in Sources */,

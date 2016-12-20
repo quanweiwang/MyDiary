@@ -8,6 +8,7 @@
 
 #import "MDEntriesVC.h"
 #import "MDTheme.h"
+#import "MDDiaryDetailVC.h"
 
 @interface MDEntriesVC ()
 @property (weak, nonatomic) IBOutlet UITableView *table;
@@ -117,6 +118,12 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
+    UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    MDDiaryDetailVC * vc = [sb instantiateViewControllerWithIdentifier:@"MDDiaryDetailVC"];
+    vc.providesPresentationContextTransitionStyle = YES;
+    vc.definesPresentationContext = YES;
+    vc.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+    [self presentViewController:vc animated:NO completion:nil];
 }
 
 @end
