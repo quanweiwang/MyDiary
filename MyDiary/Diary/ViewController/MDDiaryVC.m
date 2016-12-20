@@ -230,14 +230,23 @@
 #pragma mark 定位相关
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
 {
-    // 1.获取用户位置的对象
+    //停止定位
+    [manager stopUpdatingLocation];
+    
+    //获取用户位置的对象
     CLLocation *location = [locations lastObject];
     CLLocationCoordinate2D coordinate = location.coordinate;
     NSLog(@"纬度:%f 经度:%f", coordinate.latitude, coordinate.longitude);
     
+    CLGeocoder *geocoder = [[CLGeocoder alloc]init];
+    
+    [geocoder reverseGeocodeLocation:location completionHandler:^(NSArray<CLPlacemark *> * _Nullable placemarks, NSError * _Nullable error) {
         
-    // 2.停止定位
-    [manager stopUpdatingLocation];
+        CLPlacemark * place = [placemarks lastObject];
+        
+        self.locationLabel.text = [NSString stringWithFormat:@"%@ %@ %@",place.country, place.locality,place.subLocality];
+       
+    }];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
