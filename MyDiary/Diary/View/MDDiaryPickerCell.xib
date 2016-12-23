@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11542" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MDDiaryPickerCell"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="MDDiaryPickerCell">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="eUy-MD-x86">
+                    <rect key="frame" x="175" y="10" width="24" height="24"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="24" id="K9u-Wb-5W6"/>
+                        <constraint firstAttribute="height" constant="24" id="npH-MP-VxY"/>
+                    </constraints>
+                </imageView>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="eUy-MD-x86" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="VPS-e5-q1E"/>
+                <constraint firstItem="eUy-MD-x86" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="bec-8Q-ckt"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="image" destination="eUy-MD-x86" id="jAN-MN-CiO"/>
+                <outlet property="imageView" destination="eUy-MD-x86" id="mqV-gP-iEq"/>
+            </connections>
+            <point key="canvasLocation" x="75" y="93"/>
+        </view>
+    </objects>
+</document>

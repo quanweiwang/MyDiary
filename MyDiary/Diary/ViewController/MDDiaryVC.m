@@ -10,8 +10,9 @@
 #import "QWTextView.h"
 #import "MDTheme.h"
 #import <CoreLocation/CoreLocation.h>
+#import "MDDiaryPickerVC.h"
 
-@interface MDDiaryVC ()<UINavigationControllerDelegate,UIImagePickerControllerDelegate,CLLocationManagerDelegate>
+@interface MDDiaryVC ()<UINavigationControllerDelegate,UIImagePickerControllerDelegate,CLLocationManagerDelegate,MDDiaryPickerDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *monthLabel;//月份
 @property (weak, nonatomic) IBOutlet UILabel *dayLabel;//天
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;//星期 时间
@@ -29,7 +30,12 @@
 @property (weak, nonatomic) IBOutlet UIView *diaryLineView;//日记分割线
 
 @property (strong, nonatomic) UIImagePickerController * picker;//相册&拍照
-@property (nonatomic, strong) CLLocationManager* locationManager;//定位
+@property (strong, nonatomic) CLLocationManager* locationManager;//定位
+
+@property (strong, nonatomic) NSArray * weekdayArray;//星期数组
+@property (strong, nonatomic) NSArray * monthArray;//月份数组
+@property (strong, nonatomic) NSArray<NSString *> * weatherArray;//天气数组
+@property (strong, nonatomic) NSArray<NSString *> * moodArray;//心情数组
 
 @end
 
@@ -64,7 +70,13 @@
     //保存按钮
     [self.saveBtn addTarget:self action:@selector(saveBtn:) forControlEvents:UIControlEventTouchUpInside];
     
-    
+    //当前 星期 时间
+    NSDate * date = [NSDate date];
+    self.timeLabel.text = [NSString stringWithFormat:@"%@ %@",[self toDayInWeekday:date],[self currentTime:date]] ;
+    //日期
+    self.dayLabel.text = [NSString stringWithFormat:@"%d",[self day:date]];
+    //月份
+    self.monthLabel.text = [self month:date];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -76,9 +88,29 @@
 //天气按钮
 - (void) weatherBtn:(UIButton *)btn {
     
+    UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    MDDiaryPickerVC * weatherPicker = [sb instantiateViewControllerWithIdentifier:@"MDDiaryPickerVC"];
+    weatherPicker.providesPresentationContextTransitionStyle = YES;
+    weatherPicker.definesPresentationContext = YES;
+    weatherPicker.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+    weatherPicker.delegate = self;
+    weatherPicker.tag = 1;
+    weatherPicker.imageArray = self.weatherArray;
+    [self presentViewController:weatherPicker animated:NO completion:nil];
+
 }
 //心情按钮
 - (void) moodBtn:(UIButton *)btn {
+    
+    UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    MDDiaryPickerVC * moodPicker = [sb instantiateViewControllerWithIdentifier:@"MDDiaryPickerVC"];
+    moodPicker.providesPresentationContextTransitionStyle = YES;
+    moodPicker.definesPresentationContext = YES;
+    moodPicker.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+    moodPicker.delegate = self;
+    moodPicker.tag = 2;
+    moodPicker.imageArray = self.moodArray;
+    [self presentViewController:moodPicker animated:NO completion:nil];
     
 }
 //位置按钮
@@ -227,6 +259,38 @@
     return _picker;
 }
 
+- (NSArray *)weekdayArray {
+    
+    if (_weekdayArray == nil) {
+        _weekdayArray = [NSArray arrayWithObjects:@"Sunday",@"Monday",@"Tuesday",@"Wednesday",@"Thursday",@"Friday",@"Saturday", nil];
+    }
+    return _weekdayArray;
+}
+
+- (NSArray *)monthArray {
+    
+    if (_monthArray == nil) {
+        _monthArray = [NSArray arrayWithObjects:@"January",@"February",@"March",@"April",@"May",@"June",@"July",@"August",@"September",@"October",@"November",@"December", nil];
+    }
+    return _monthArray;
+}
+
+- (NSArray<NSString *> *)moodArray {
+    
+    if (_moodArray == nil) {
+        _moodArray = [NSArray arrayWithObjects:@"ic_mood_happy",@"ic_mood_soso",@"ic_mood_unhappy", nil];
+    }
+    return _moodArray;
+}
+
+- (NSArray<NSString *> *)weatherArray {
+    
+    if (_weatherArray == nil) {
+        _weatherArray = [NSArray arrayWithObjects:@"ic_weather_cloud",@"ic_weather_foggy",@"ic_weather_rainy",@"ic_weather_snowy",@"ic_weather_sunny",@"ic_weather_windy", nil];
+    }
+    return _weatherArray;
+}
+
 #pragma mark 定位相关
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
 {
@@ -255,4 +319,57 @@
         // 提示用户出错原因，可按住Option键点击 KCLErrorDenied的查看更多出错信息，可打印error.code值查找原因所在
     }
 }
+
+#pragma mark 日期相关
+//今天星期几
+- (NSString *)toDayInWeekday:(NSDate *)date{
+    
+    NSDateComponents *components = [[NSCalendar currentCalendar] components:(NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay) fromDate:date];
+    
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    
+    [calendar setFirstWeekday:1];//1.Sun. 2.Mon. 3.Thes. 4.Wed. 5.Thur. 6.Fri. 7.Sat.
+    NSDateComponents *comp = [calendar components:(NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay) fromDate:date];
+    
+    [comp setDay:[components day]];
+    NSDate *firstDayOfMonthDate = [calendar dateFromComponents:comp];
+    
+    NSUInteger firstWeekday = [calendar ordinalityOfUnit:NSCalendarUnitWeekday inUnit:NSCalendarUnitWeekOfMonth forDate:firstDayOfMonthDate];
+    return self.weekdayArray[firstWeekday - 1];
+}
+
+//当前时间
+- (NSString *) currentTime:(NSDate *)date {
+    
+    NSDateFormatter * dateFormatter = [[NSDateFormatter alloc] init];
+    dateFormatter.dateFormat = @"HH:mm";
+    
+    return [dateFormatter stringFromDate:date];
+}
+
+//当前月份
+- (NSString *)month:(NSDate *)date{
+    NSDateComponents *components = [[NSCalendar currentCalendar] components:(NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay) fromDate:date];
+    
+    return self.monthArray[[components month] - 1];
+}
+
+//当前天数
+- (NSInteger)day:(NSDate *)date{
+    NSDateComponents *components = [[NSCalendar currentCalendar] components:(NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay) fromDate:date];
+    return [components day];
+}
+
+#pragma mark MDDiaryPickerDelegate 相关
+- (void)diary_pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
+    
+    if (pickerView.tag == 1) {
+        [self.weatherBtn setImage:[UIImage imageNamed:self.weatherArray[row]] forState:UIControlStateNormal];
+    }
+    else{
+        [self.moodBtn setImage:[UIImage imageNamed:self.moodArray[row]] forState:UIControlStateNormal];
+    }
+    
+}
+
 @end

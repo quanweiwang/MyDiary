@@ -21,6 +21,10 @@
 		D66C83E81E0143F400333213 /* ContactsUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D66C83E71E0143F400333213 /* ContactsUI.framework */; };
 		D66C83EE1E0147E600333213 /* MDContactsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = D66C83ED1E0147E600333213 /* MDContactsVC.m */; };
 		D66C83F11E01484400333213 /* MDContactsMdl.m in Sources */ = {isa = PBXBuildFile; fileRef = D66C83F01E01484400333213 /* MDContactsMdl.m */; };
+		D6A12C701E0D66CC0009903F /* MDDiaryMdl.m in Sources */ = {isa = PBXBuildFile; fileRef = D6A12C6F1E0D66CC0009903F /* MDDiaryMdl.m */; };
+		D6A12C731E0D6ABD0009903F /* MDDiaryPickerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D6A12C721E0D6ABD0009903F /* MDDiaryPickerCell.m */; };
+		D6A12C751E0D6AD40009903F /* MDDiaryPickerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D6A12C741E0D6AD40009903F /* MDDiaryPickerCell.xib */; };
+		D6A12C781E0D70300009903F /* MDDiaryPickerVC.m in Sources */ = {isa = PBXBuildFile; fileRef = D6A12C771E0D70300009903F /* MDDiaryPickerVC.m */; };
 		D6ACB0D91E06BC7200A004B3 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6ACB0D81E06BC7200A004B3 /* CoreLocation.framework */; };
 		D6C372271DF7B11C00C8C544 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D6C372261DF7B11C00C8C544 /* main.m */; };
 		D6C3722A1DF7B11C00C8C544 /* MDAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D6C372291DF7B11C00C8C544 /* MDAppDelegate.m */; };
@@ -89,6 +93,13 @@
 		D66C83ED1E0147E600333213 /* MDContactsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDContactsVC.m; path = Contacts/ViewController/MDContactsVC.m; sourceTree = "<group>"; };
 		D66C83EF1E01484400333213 /* MDContactsMdl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDContactsMdl.h; path = Contacts/Model/MDContactsMdl.h; sourceTree = "<group>"; };
 		D66C83F01E01484400333213 /* MDContactsMdl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDContactsMdl.m; path = Contacts/Model/MDContactsMdl.m; sourceTree = "<group>"; };
+		D6A12C6E1E0D66CC0009903F /* MDDiaryMdl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDDiaryMdl.h; path = Diary/Model/MDDiaryMdl.h; sourceTree = "<group>"; };
+		D6A12C6F1E0D66CC0009903F /* MDDiaryMdl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDDiaryMdl.m; path = Diary/Model/MDDiaryMdl.m; sourceTree = "<group>"; };
+		D6A12C711E0D6ABD0009903F /* MDDiaryPickerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDDiaryPickerCell.h; path = Diary/View/MDDiaryPickerCell.h; sourceTree = "<group>"; };
+		D6A12C721E0D6ABD0009903F /* MDDiaryPickerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDDiaryPickerCell.m; path = Diary/View/MDDiaryPickerCell.m; sourceTree = "<group>"; };
+		D6A12C741E0D6AD40009903F /* MDDiaryPickerCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MDDiaryPickerCell.xib; path = Diary/View/MDDiaryPickerCell.xib; sourceTree = "<group>"; };
+		D6A12C761E0D70300009903F /* MDDiaryPickerVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MDDiaryPickerVC.h; path = Diary/ViewController/MDDiaryPickerVC.h; sourceTree = "<group>"; };
+		D6A12C771E0D70300009903F /* MDDiaryPickerVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MDDiaryPickerVC.m; path = Diary/ViewController/MDDiaryPickerVC.m; sourceTree = "<group>"; };
 		D6ACB0D81E06BC7200A004B3 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		D6C372221DF7B11C00C8C544 /* MyDiary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyDiary.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D6C372261DF7B11C00C8C544 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -196,6 +207,8 @@
 				D6490D861DF853AB0068BE61 /* MDDiaryVC.m */,
 				D63CF5031E096A4000AF0491 /* MDDiaryDetailVC.h */,
 				D63CF5041E096A4000AF0491 /* MDDiaryDetailVC.m */,
+				D6A12C761E0D70300009903F /* MDDiaryPickerVC.h */,
+				D6A12C771E0D70300009903F /* MDDiaryPickerVC.m */,
 			);
 			name = ViewController;
 			sourceTree = "<group>";
@@ -203,6 +216,8 @@
 		D6490D7A1DF84E8E0068BE61 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				D6A12C6E1E0D66CC0009903F /* MDDiaryMdl.h */,
+				D6A12C6F1E0D66CC0009903F /* MDDiaryMdl.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -210,6 +225,9 @@
 		D6490D7B1DF84E920068BE61 /* VIew */ = {
 			isa = PBXGroup;
 			children = (
+				D6A12C711E0D6ABD0009903F /* MDDiaryPickerCell.h */,
+				D6A12C721E0D6ABD0009903F /* MDDiaryPickerCell.m */,
+				D6A12C741E0D6AD40009903F /* MDDiaryPickerCell.xib */,
 			);
 			name = VIew;
 			sourceTree = "<group>";
@@ -573,6 +591,7 @@
 			files = (
 				D6C372351DF7B11C00C8C544 /* LaunchScreen.storyboard in Resources */,
 				D6C372321DF7B11C00C8C544 /* Assets.xcassets in Resources */,
+				D6A12C751E0D6AD40009903F /* MDDiaryPickerCell.xib in Resources */,
 				D6C372301DF7B11C00C8C544 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -653,6 +672,7 @@
 				D6C3722A1DF7B11C00C8C544 /* MDAppDelegate.m in Sources */,
 				D60996F31DFD124B005B6880 /* BaseVC.m in Sources */,
 				D6F8181A1DFAE49300AFFFD4 /* MDAsync.m in Sources */,
+				D6A12C781E0D70300009903F /* MDDiaryPickerVC.m in Sources */,
 				D6D4421C1E054A080034FBCA /* MDAddContactsVC.m in Sources */,
 				D6C372741DF7E50000C8C544 /* MDMemoVC.m in Sources */,
 				D6C372631DF7B2CB00C8C544 /* MDMainVC.m in Sources */,
@@ -670,6 +690,8 @@
 				D6E3EC5A1DFAA41300188A4D /* BaseNav.m in Sources */,
 				D6C372831DF7F16600C8C544 /* MDMemoMdl.m in Sources */,
 				D6F818161DFAE0E800AFFFD4 /* NSObject+SaveImage.m in Sources */,
+				D6A12C731E0D6ABD0009903F /* MDDiaryPickerCell.m in Sources */,
+				D6A12C701E0D66CC0009903F /* MDDiaryMdl.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
