@@ -20,9 +20,16 @@
 //存储联系人
 + (void)async_saveContacts:(NSMutableArray *)contacts;
 
+//存储日记
++ (void)async_saveDiary:(NSMutableArray *)diarys;
+
 //读取联系人
 + (NSMutableArray *)async_readContacts;
 
 //读取备忘录
 + (NSMutableArray *)async_readMemo;
+
+//读取日记
++ (void)async_readDiary;
+
 @end

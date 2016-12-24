@@ -11,6 +11,7 @@
 #import "MDTheme.h"
 #import <CoreLocation/CoreLocation.h>
 #import "MDDiaryPickerVC.h"
+#import "MDDiaryMdl.h"
 
 @interface MDDiaryVC ()<UINavigationControllerDelegate,UIImagePickerControllerDelegate,CLLocationManagerDelegate,MDDiaryPickerDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *monthLabel;//月份
@@ -36,7 +37,13 @@
 @property (strong, nonatomic) NSArray * monthArray;//月份数组
 @property (strong, nonatomic) NSArray<NSString *> * weatherArray;//天气数组
 @property (strong, nonatomic) NSArray<NSString *> * moodArray;//心情数组
-
+@property (strong, nonatomic) NSString * weekday;//星期
+@property (strong, nonatomic) NSString * time;//时间
+@property (strong, nonatomic) NSString * country;//国家
+@property (strong, nonatomic) NSString * locality;//市
+@property (strong, nonatomic) NSString * subLocality;//区
+@property (assign, nonatomic) NSInteger weatherIndex;//天气下标
+@property (assign, nonatomic) NSInteger moodIndex;//心情下标
 @end
 
 @implementation MDDiaryVC
@@ -72,7 +79,9 @@
     
     //当前 星期 时间
     NSDate * date = [NSDate date];
-    self.timeLabel.text = [NSString stringWithFormat:@"%@ %@",[self toDayInWeekday:date],[self currentTime:date]] ;
+    self.weekday = [self toDayInWeekday:date];
+    self.time = [self currentTime:date];
+    self.timeLabel.text = [NSString stringWithFormat:@"%@ %@",self.weekday,self.time] ;
     //日期
     self.dayLabel.text = [NSString stringWithFormat:@"%d",[self day:date]];
     //月份
@@ -220,6 +229,25 @@
     }
     else{
         
+        MDDiaryMdl * diaryMdl = [[MDDiaryMdl alloc] init];
+        diaryMdl.month = self.monthLabel.text;
+        diaryMdl.day = self.dayLabel.text;
+        diaryMdl.time = self.time;
+        diaryMdl.weekday = self.weekday;
+        diaryMdl.country = self.country;
+        diaryMdl.locality = self.locality;
+        diaryMdl.subLocality = self.subLocality;
+        diaryMdl.diaryTitle = self.diaryTitleTextField.text;
+        diaryMdl.diaryContent = self.diaryContentTextView.text;
+        diaryMdl.weather = self.weatherArray[self.weatherIndex];
+        diaryMdl.mood = self.moodArray[self.moodIndex];
+        
+        NSNotificationCenter * notificationCenter = [NSNotificationCenter defaultCenter];
+        [notificationCenter postNotificationName:@"kMDDiaryNotification" object:self userInfo:@{@"diary" : diaryMdl}];
+        
+        //切换到日记列表
+        [self.delegate diary_selectedSegmentIndex:0];
+        
     }
 }
 
@@ -308,7 +336,14 @@
         
         CLPlacemark * place = [placemarks lastObject];
         
-        self.locationLabel.text = [NSString stringWithFormat:@"%@ %@ %@",place.country, place.locality,place.subLocality];
+        //国家
+        self.country = place.country;
+        //市
+        self.locality = place.locality;
+        //区
+        self.subLocality = place.subLocality;
+        
+        self.locationLabel.text = [NSString stringWithFormat:@"%@ %@ %@",self.country, self.locality,self.subLocality];
        
     }];
 }
@@ -365,9 +400,11 @@
     
     if (pickerView.tag == 1) {
         [self.weatherBtn setImage:[UIImage imageNamed:self.weatherArray[row]] forState:UIControlStateNormal];
+        self.weatherIndex = row;
     }
     else{
         [self.moodBtn setImage:[UIImage imageNamed:self.moodArray[row]] forState:UIControlStateNormal];
+        self.moodIndex = row;
     }
     
 }

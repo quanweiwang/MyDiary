@@ -674,7 +674,7 @@
                                                         <imageView userInteractionEnabled="NO" tag="7000" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="7kV-dD-LZI">
                                                             <rect key="frame" x="291" y="8" width="24" height="24"/>
                                                         </imageView>
-                                                        <imageView userInteractionEnabled="NO" tag="6000" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="HXd-5b-vNs">
+                                                        <imageView userInteractionEnabled="NO" tag="6000" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_bookmark_border" translatesAutoresizingMaskIntoConstraints="NO" id="HXd-5b-vNs">
                                                             <rect key="frame" x="323" y="8" width="24" height="24"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="24" id="SQi-He-FXj"/>

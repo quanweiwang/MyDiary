@@ -140,6 +140,47 @@
     
 }
 
+//存储联系人
++ (void)async_saveDiary:(NSMutableArray *)diarys {
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        
+        // 耗时的操作
+        NSString *path = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES) objectAtIndex:0] stringByAppendingPathComponent:@"diarys.archiver"];
+        
+        //如果文件不存在
+        if ([[NSFileManager defaultManager] fileExistsAtPath:path] == NO)
+            
+        {
+            NSFileManager* fileManager = [NSFileManager defaultManager];
+            
+            [fileManager createFileAtPath:path contents:nil attributes:nil];
+            
+        }
+        
+        BOOL isSucceed = [NSKeyedArchiver archiveRootObject:diarys toFile:path];
+        
+        if (isSucceed) {
+            //存储日记数量
+            [[NSUserDefaults standardUserDefaults] setObject:@(diarys.count) forKey:@"diarysNum"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+        }
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            // 更新界面
+            if (isSucceed) {
+                NSLog(@"日记写入成功");
+            }
+            else{
+                NSLog(@"日记写入失败");
+            }
+            
+        });
+    });
+    
+    
+}
+
 //读取联系人
 + (NSMutableArray *)async_readContacts {
     
@@ -174,6 +215,24 @@
     NSMutableArray * memo = [NSKeyedUnarchiver unarchiveObjectWithFile:path];
     
     return memo;
+}
+
+//读取备忘录
++ (NSMutableArray *)async_readDiary {
+    
+    // 耗时的操作
+    NSString *path = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,NSUserDomainMask,YES) objectAtIndex:0] stringByAppendingPathComponent:@"diarys.archiver"];
+    
+    //如果文件不存在
+    if ([[NSFileManager defaultManager] fileExistsAtPath:path] == NO)
+        
+    {
+        return nil;
+    }
+    
+    NSMutableArray * diarys = [NSKeyedUnarchiver unarchiveObjectWithFile:path];
+    
+    return diarys;
 }
 
 

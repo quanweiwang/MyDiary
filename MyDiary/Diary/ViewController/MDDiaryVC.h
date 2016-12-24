@@ -8,6 +8,14 @@
 
 #import "BaseTableVC.h"
 
+@protocol MDDiaryDelegate <NSObject>
+
+- (void) diary_selectedSegmentIndex:(NSInteger) index;
+
+@end
+
 @interface MDDiaryVC : BaseTableVC
+
+@property(assign, nonatomic) id<MDDiaryDelegate>delegate;
 
 @end

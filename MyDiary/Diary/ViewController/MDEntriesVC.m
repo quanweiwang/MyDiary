@@ -9,6 +9,8 @@
 #import "MDEntriesVC.h"
 #import "MDTheme.h"
 #import "MDDiaryDetailVC.h"
+#import "MDDiaryMdl.h"
+#import "MDAsync.h"
 
 @interface MDEntriesVC ()
 @property (weak, nonatomic) IBOutlet UITableView *table;
@@ -17,6 +19,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *cameraBtn;//相机按钮
 @property (weak, nonatomic) IBOutlet UIView *bottomView;//底部视图
 
+@property (strong, nonatomic) NSMutableArray * data;//数据源
 
 @end
 
@@ -36,6 +39,9 @@
     [self.addDiaryBtn addTarget:self action:@selector(addDiaryBtn:) forControlEvents:UIControlEventTouchUpInside];
     //相机按钮
     [self.cameraBtn addTarget:self action:@selector(cameraBtn:) forControlEvents:UIControlEventTouchUpInside];
+    
+    //接收通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(diaryNotification:) name:@"kMDDiaryNotification" object:nil];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -68,7 +74,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     
-    return 1;
+    return self.data.count;
 }
 
 //每行高
@@ -107,6 +113,35 @@
                                       reuseIdentifier:cellString];
     }
     
+    //天数
+    UILabel * dayLabel = (UILabel *)[cell viewWithTag:1000];
+    dayLabel.text = @"";
+    
+    //星期
+    UILabel * weekdayLabel = (UILabel *)[cell viewWithTag:2000];
+    weekdayLabel.text = @"";
+    
+    //时间
+    UILabel * timeLabel = (UILabel *)[cell viewWithTag:3000];
+    timeLabel.text = @"";
+    
+    //日记标题
+    UILabel * diaryTitleLabel = (UILabel *)[cell viewWithTag:4000];
+    diaryTitleLabel.text = @"";
+    
+    //日记内容缩略
+    UILabel * diaryContentLabel = (UILabel *)[cell viewWithTag:5000];
+    diaryContentLabel.text = @"";
+    
+    //天气
+    UIImageView * weatherImg = (UIImageView *)[cell viewWithTag:6000];
+    weatherImg.image = [UIImage imageNamed:@""];
+    
+    //心情
+    UIImageView * moodImg = (UIImageView *)[cell viewWithTag:7000];
+    moodImg.image = [UIImage imageNamed:@""];
+
+    
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     return cell;
@@ -124,6 +159,29 @@
     vc.definesPresentationContext = YES;
     vc.modalPresentationStyle = UIModalPresentationOverCurrentContext;
     [self presentViewController:vc animated:NO completion:nil];
+}
+
+#pragma mark MDDiaryNotification通知
+- (void) diaryNotification:(NSNotification * )info {
+    
+    NSDictionary * dic = info.userInfo;
+    MDDiaryMdl * diaryMdl = [dic objectForKey:@"diary"];
+    [self.data addObject:diaryMdl];
+    
+    NSIndexPath * indexPath = [NSIndexPath indexPathForRow:self.data.count-1 inSection:0];
+    [self.table insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+    
+    //存储日记
+    [MDAsync async_saveDiary:self.data];
+}
+
+#pragma mark 懒加载
+- (NSMutableArray *)data {
+    
+    if (_data == nil) {
+        _data = [NSMutableArray array];
+    }
+    return _data;
 }
 
 @end

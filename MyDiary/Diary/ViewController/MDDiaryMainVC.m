@@ -12,7 +12,7 @@
 #import "MDDiaryVC.h"
 #import "MDCalendarVC.h"
 
-@interface MDDiaryMainVC ()
+@interface MDDiaryMainVC ()<MDDiaryDelegate>
     
 @property (weak, nonatomic) IBOutlet UIImageView *backgroundImg;//背景图片
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segmented;
@@ -111,6 +111,7 @@
         if (self.diaryVC == nil) {
             UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
             self.diaryVC = [sb instantiateViewControllerWithIdentifier:@"MDDiaryVC"];
+            self.diaryVC.delegate = self;
             self.diaryVC.view.frame = CGRectMake([[UIScreen mainScreen] bounds].size.width * 2, 0, self.mainScrollView.bounds.size.width, self.mainScrollView.bounds.size.height);
             [self.mainScrollView addSubview:self.diaryVC.view];
             [self addChildViewController:self.diaryVC];
@@ -119,5 +120,10 @@
         [self.mainScrollView setContentOffset:CGPointMake([[UIScreen mainScreen] bounds].size.width * 2, 0)];
     }
 }
-    
+
+#pragma mark MDDiaryDelegate 
+- (void)diary_selectedSegmentIndex:(NSInteger)index {
+    self.segmented.selectedSegmentIndex = 0;
+    [self.mainScrollView setContentOffset:CGPointMake(0, 0)];
+}
 @end
