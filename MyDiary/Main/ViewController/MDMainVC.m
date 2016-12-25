@@ -67,7 +67,7 @@
     self.contactsNum = contactsNumber == nil ? @"0" : [contactsNumber stringValue];
     
     //日记数量
-    NSNumber * diaryNumber = [[NSUserDefaults standardUserDefaults] objectForKey:@"diaryNum"];
+    NSNumber * diaryNumber = [[NSUserDefaults standardUserDefaults] objectForKey:@"diarysNum"];
     self.diaryNum = diaryNumber == nil ? @"0" : [diaryNumber stringValue];
 
     //注意事项数量

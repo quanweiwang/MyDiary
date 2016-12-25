@@ -30,6 +30,6 @@
 + (NSMutableArray *)async_readMemo;
 
 //读取日记
-+ (void)async_readDiary;
++ (NSMutableArray *)async_readDiary;
 
 @end

@@ -42,6 +42,8 @@
     
     //接收通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(diaryNotification:) name:@"kMDDiaryNotification" object:nil];
+    
+    self.data = [MDAsync async_readDiary];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -113,33 +115,35 @@
                                       reuseIdentifier:cellString];
     }
     
+    MDDiaryMdl * diaryMdl = self.data[indexPath.row];
+    
     //天数
     UILabel * dayLabel = (UILabel *)[cell viewWithTag:1000];
-    dayLabel.text = @"";
+    dayLabel.text = diaryMdl.day;
     
     //星期
     UILabel * weekdayLabel = (UILabel *)[cell viewWithTag:2000];
-    weekdayLabel.text = @"";
+    weekdayLabel.text = diaryMdl.weekday;
     
     //时间
     UILabel * timeLabel = (UILabel *)[cell viewWithTag:3000];
-    timeLabel.text = @"";
+    timeLabel.text = diaryMdl.time;
     
     //日记标题
     UILabel * diaryTitleLabel = (UILabel *)[cell viewWithTag:4000];
-    diaryTitleLabel.text = @"";
+    diaryTitleLabel.text = diaryMdl.diaryTitle;
     
     //日记内容缩略
     UILabel * diaryContentLabel = (UILabel *)[cell viewWithTag:5000];
-    diaryContentLabel.text = @"";
+    diaryContentLabel.text = diaryMdl.diaryContent;
     
     //天气
     UIImageView * weatherImg = (UIImageView *)[cell viewWithTag:6000];
-    weatherImg.image = [UIImage imageNamed:@""];
+    weatherImg.image = [UIImage imageNamed:diaryMdl.weather];
     
     //心情
     UIImageView * moodImg = (UIImageView *)[cell viewWithTag:7000];
-    moodImg.image = [UIImage imageNamed:@""];
+    moodImg.image = [UIImage imageNamed:diaryMdl.mood];
 
     
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
