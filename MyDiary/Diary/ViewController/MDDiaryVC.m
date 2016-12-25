@@ -65,9 +65,14 @@
     self.diaryContentTextView.placeholder = @"在此写下您的日记内容";
     
     //天气按钮
+    self.weatherBtn.tintColor = [MDTheme themeColor];
+    [self.weatherBtn setImage:[[UIImage imageNamed:@"ic_weather_cloud"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] forState:UIControlStateNormal];
     [self.weatherBtn addTarget:self action:@selector(weatherBtn:) forControlEvents:UIControlEventTouchUpInside];
     //心情按钮
+    self.moodBtn.tintColor = [MDTheme themeColor];
+    [self.moodBtn setImage:[[UIImage imageNamed:@"ic_mood_happy"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] forState:UIControlStateNormal];
     [self.moodBtn addTarget:self action:@selector(moodBtn:) forControlEvents:UIControlEventTouchUpInside];
+    
     //位置按钮
     [self.locationBtn addTarget:self action:@selector(locationBtn:) forControlEvents:UIControlEventTouchUpInside];
     //相机按钮
@@ -399,11 +404,11 @@
 - (void)diary_pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
     
     if (pickerView.tag == 1) {
-        [self.weatherBtn setImage:[UIImage imageNamed:self.weatherArray[row]] forState:UIControlStateNormal];
+        [self.weatherBtn setImage:[[UIImage imageNamed:self.weatherArray[row]] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] forState:UIControlStateNormal];
         self.weatherIndex = row;
     }
     else{
-        [self.moodBtn setImage:[UIImage imageNamed:self.moodArray[row]] forState:UIControlStateNormal];
+        [self.moodBtn setImage:[[UIImage imageNamed:self.moodArray[row]] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] forState:UIControlStateNormal];
         self.moodIndex = row;
     }
     

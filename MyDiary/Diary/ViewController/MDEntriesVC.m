@@ -151,6 +151,12 @@
     UIImageView * moodImg = (UIImageView *)[cell viewWithTag:7000];
     moodImg.tintColor = [MDTheme themeColor];
     moodImg.image = [[UIImage imageNamed:diaryMdl.mood] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    
+    //心情
+    UIImageView * image = (UIImageView *)[cell viewWithTag:8000];
+    image.tintColor = [MDTheme themeColor];
+    image.image = [[UIImage imageNamed:@"ic_bookmark_border"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+
 
     
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
