@@ -119,31 +119,38 @@
     
     //天数
     UILabel * dayLabel = (UILabel *)[cell viewWithTag:1000];
+    dayLabel.textColor = [MDTheme themeColor];
     dayLabel.text = diaryMdl.day;
     
     //星期
     UILabel * weekdayLabel = (UILabel *)[cell viewWithTag:2000];
-    weekdayLabel.text = diaryMdl.weekday;
+    weekdayLabel.textColor = [MDTheme themeColor];
+    weekdayLabel.text = [diaryMdl.weekday substringToIndex:3];
     
     //时间
     UILabel * timeLabel = (UILabel *)[cell viewWithTag:3000];
+    timeLabel.textColor = [MDTheme themeColor];
     timeLabel.text = diaryMdl.time;
     
     //日记标题
     UILabel * diaryTitleLabel = (UILabel *)[cell viewWithTag:4000];
+    diaryTitleLabel.textColor = [MDTheme themeColor];
     diaryTitleLabel.text = diaryMdl.diaryTitle;
     
     //日记内容缩略
     UILabel * diaryContentLabel = (UILabel *)[cell viewWithTag:5000];
+    diaryContentLabel.textColor = [MDTheme themeColor];
     diaryContentLabel.text = diaryMdl.diaryContent;
     
     //天气
     UIImageView * weatherImg = (UIImageView *)[cell viewWithTag:6000];
-    weatherImg.image = [UIImage imageNamed:diaryMdl.weather];
+    weatherImg.tintColor = [MDTheme themeColor];
+    weatherImg.image = [[UIImage imageNamed:diaryMdl.weather] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     
     //心情
     UIImageView * moodImg = (UIImageView *)[cell viewWithTag:7000];
-    moodImg.image = [UIImage imageNamed:diaryMdl.mood];
+    moodImg.tintColor = [MDTheme themeColor];
+    moodImg.image = [[UIImage imageNamed:diaryMdl.mood] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
 
     
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
