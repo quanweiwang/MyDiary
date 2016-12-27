@@ -33,8 +33,15 @@
 @property (weak, nonatomic) IBOutlet UIButton *closeBtn;//关闭按钮
 
 @property (strong, nonatomic) UIImagePickerController * picker;//相册&拍照
-@property (nonatomic, strong) CLLocationManager* locationManager;//定位
+@property (nonatomic, strong) CLLocationManager * locationManager;//定位
 
+@property (nonatomic, strong) NSString * weekday;//星期
+@property (nonatomic, strong) NSString * time;//时间
+@property (assign, nonatomic) NSInteger weatherIndex;//天气下标
+@property (assign, nonatomic) NSInteger moodIndex;//心情下标
+@property (strong, nonatomic) NSArray<NSString *> * weatherArray;//天气数组
+@property (strong, nonatomic) NSArray<NSString *> * moodArray;//心情数组
+@property (assign, nonatomic) BOOL isEdit;//是否编辑 已编辑YES 未编辑NO
 @end
 
 @implementation MDDiaryDetailVC
@@ -61,7 +68,9 @@
     //天
     self.dayLabel.text = self.model.day;
     //星期日期
-    self.timeLabel.text = [NSString stringWithFormat:@"%@ %@",self.model.weekday,self.model.time];
+    self.time = self.model.time;
+    self.weekday = self.model.weekday;
+    self.timeLabel.text = [NSString stringWithFormat:@"%@ %@",self.weekday,self.time];
     //位置
     self.locationLabel.text = self.model.location;
     
@@ -89,6 +98,9 @@
     //默认状态
     self.diaryContentTextView.editable = NO;
     self.diaryTitleTextField.enabled = NO;
+    
+    //是否编辑
+    self.isEdit = NO;
 
 }
 
@@ -190,7 +202,8 @@
     
     UIAlertAction * exitAction = [UIAlertAction actionWithTitle:@"狠心删除" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
         
-                
+        [self.delegate deleteDiary:self.indexPath];
+        [self dismissViewControllerAnimated:NO completion:nil];
     }];
     
     [alertController addAction:cancelAction];
@@ -205,6 +218,8 @@
     btn.selected = !btn.selected;
     if (btn.selected == true) {
         
+        //已编辑 那么关闭时要更新model
+        self.isEdit = YES;
         self.cameraBtn.enabled = YES;
         self.locationBtn.enabled = YES;
         self.diaryTitleTextField.enabled = YES;
@@ -218,10 +233,29 @@
         self.diaryTitleTextField.enabled = NO;
         self.diaryContentTextView.editable = NO;
         [self.view endEditing:YES];
+        
+        self.model.month = self.monthLabel.text;
+        self.model.day = self.dayLabel.text;
+        self.model.weekday = self.weekday;
+        self.model.time = self.time;
+        self.model.diaryTitle = self.diaryTitleTextField.text;
+        self.model.diaryContent = self.diaryContentTextView.text;
+        self.model.weather = self.weatherArray[self.weatherIndex];
+        self.model.mood = self.moodArray[self.moodIndex];
+        self.model.location = self.locationLabel.text;
     }
 }
 //关闭按钮
 - (void) closeBtn:(UIButton *)btn {
+    
+    if (self.editBtn.selected == YES) {
+        //编辑状态没保存 这里要有提示
+        return ;
+    }
+    else if (self.isEdit == YES){
+        //有动过编辑按钮
+        [self.delegate editDiary:self.model indexPath:self.indexPath];
+    }
     
     [self dismissViewControllerAnimated:NO completion:nil];
 }
@@ -260,6 +294,22 @@
         _picker.delegate = self;
     }
     return _picker;
+}
+
+- (NSArray<NSString *> *)moodArray {
+    
+    if (_moodArray == nil) {
+        _moodArray = [NSArray arrayWithObjects:@"ic_mood_happy",@"ic_mood_soso",@"ic_mood_unhappy", nil];
+    }
+    return _moodArray;
+}
+
+- (NSArray<NSString *> *)weatherArray {
+    
+    if (_weatherArray == nil) {
+        _weatherArray = [NSArray arrayWithObjects:@"ic_weather_cloud",@"ic_weather_foggy",@"ic_weather_rainy",@"ic_weather_snowy",@"ic_weather_sunny",@"ic_weather_windy", nil];
+    }
+    return _weatherArray;
 }
 
 #pragma mark 定位相关

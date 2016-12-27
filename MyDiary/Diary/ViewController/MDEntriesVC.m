@@ -12,7 +12,7 @@
 #import "MDDiaryMdl.h"
 #import "MDAsync.h"
 
-@interface MDEntriesVC ()
+@interface MDEntriesVC ()<MDDiaryDetailDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *table;
 @property (weak, nonatomic) IBOutlet UIButton *menuBtn;//菜单按钮
 @property (weak, nonatomic) IBOutlet UIButton *addDiaryBtn;//写日记按钮
@@ -51,7 +51,7 @@
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark 按钮点击事件
+#pragma mark - 按钮点击事件 -
 //菜单按钮
 - (void) menuBtn:(UIButton *)btn {
     
@@ -65,7 +65,7 @@
     
 }
 
-#pragma mark - Table view data source
+#pragma mark - Table view data source -
 // 告诉tableview一共有多少组
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -173,13 +173,15 @@
     UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     MDDiaryDetailVC * vc = [sb instantiateViewControllerWithIdentifier:@"MDDiaryDetailVC"];
     vc.model = self.data[indexPath.row];
+    vc.indexPath = indexPath;
+    vc.delegate = self;
     vc.providesPresentationContextTransitionStyle = YES;
     vc.definesPresentationContext = YES;
     vc.modalPresentationStyle = UIModalPresentationOverCurrentContext;
     [self presentViewController:vc animated:NO completion:nil];
 }
 
-#pragma mark MDDiaryNotification通知
+#pragma mark - MDDiaryNotification通知 -
 - (void) diaryNotification:(NSNotification * )info {
     
     NSDictionary * dic = info.userInfo;
@@ -193,7 +195,7 @@
     [MDAsync async_saveDiary:self.data];
 }
 
-#pragma mark 懒加载
+#pragma mark - 懒加载 -
 - (NSMutableArray *)data {
     
     if (_data == nil) {
@@ -201,5 +203,14 @@
     }
     return _data;
 }
+
+#pragma mark - MDDiaryDetailDelegate -
+- (void)deleteDiary:(NSIndexPath *)indexPath {
+    
+    [self.data removeObjectAtIndex:indexPath.row];
+    [self.table deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+    [MDAsync async_saveDiary:self.data];
+}
+
 
 @end
