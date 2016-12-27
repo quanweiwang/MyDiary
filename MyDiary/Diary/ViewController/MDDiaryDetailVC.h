@@ -7,7 +7,10 @@
 //
 
 #import "BaseVC.h"
+@class MDDiaryMdl;
 
 @interface MDDiaryDetailVC : BaseVC
+
+@property (strong, nonatomic) MDDiaryMdl * model;
 
 @end

@@ -172,6 +172,7 @@
     
     UIStoryboard * sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     MDDiaryDetailVC * vc = [sb instantiateViewControllerWithIdentifier:@"MDDiaryDetailVC"];
+    vc.model = self.data[indexPath.row];
     vc.providesPresentationContextTransitionStyle = YES;
     vc.definesPresentationContext = YES;
     vc.modalPresentationStyle = UIModalPresentationOverCurrentContext;

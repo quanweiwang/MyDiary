@@ -20,12 +20,8 @@
     [aCoder encodeObject:self.time forKey:@"time"];
     //星期
     [aCoder encodeObject:self.weekday forKey:@"weekday"];
-    //国家
-    [aCoder encodeObject:self.country forKey:@"country"];
-    //市
-    [aCoder encodeObject:self.locality forKey:@"locality"];
-    //区
-    [aCoder encodeObject:self.subLocality forKey:@"subLocality"];
+    //位置
+    [aCoder encodeObject:self.location forKey:@"location"];
     //日记标题
     [aCoder encodeObject:self.diaryTitle forKey:@"diaryTitle"];
     //日记内容
@@ -48,11 +44,7 @@
     //星期
     self.weekday = [aDecoder decodeObjectForKey:@"weekday"];
     //国家
-    self.country = [aDecoder decodeObjectForKey:@"country"];
-    //市
-    self.locality = [aDecoder decodeObjectForKey:@"locality"];
-    //区
-    self.subLocality = [aDecoder decodeObjectForKey:@"subLocality"];
+    self.location = [aDecoder decodeObjectForKey:@"location"];
     //日记标题
     self.diaryTitle = [aDecoder decodeObjectForKey:@"diaryTitle"];
     //日记内容

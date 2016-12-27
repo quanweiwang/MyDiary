@@ -10,6 +10,7 @@
 #import "QWTextView.h"
 #import "MDTheme.h"
 #import <CoreLocation/CoreLocation.h>
+#import "MDDiaryMdl.h"
 
 @interface MDDiaryDetailVC ()<UINavigationControllerDelegate,UIImagePickerControllerDelegate,CLLocationManagerDelegate>
 
@@ -52,13 +53,25 @@
     //顶部视图
     self.headView.backgroundColor = [MDTheme themeColor];
     //日记标题
-    self.diaryTitleTextField.placeholder = @"日记标题";
+    self.diaryTitleTextField.text = self.model.diaryTitle;
     //日记内容
-    self.diaryContentTextView.placeholder = @"在此写下您的日记内容";
+    self.diaryContentTextView.text = self.model.diaryContent;
+    //月份
+    self.monthLabel.text = self.model.month;
+    //天
+    self.dayLabel.text = self.model.day;
+    //星期日期
+    self.timeLabel.text = [NSString stringWithFormat:@"%@ %@",self.model.weekday,self.model.time];
+    //位置
+    self.locationLabel.text = self.model.location;
     
     //天气按钮
+    self.weatherBtn.tintColor = [MDTheme themeColor];
+    [self.weatherBtn setImage:[[UIImage imageNamed:self.model.weather] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] forState:UIControlStateNormal];
     [self.weatherBtn addTarget:self action:@selector(weatherBtn:) forControlEvents:UIControlEventTouchUpInside];
     //心情按钮
+    self.moodBtn.tintColor = [MDTheme themeColor];
+    [self.moodBtn setImage:[[UIImage imageNamed:self.model.mood] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] forState:UIControlStateNormal];
     [self.moodBtn addTarget:self action:@selector(moodBtn:) forControlEvents:UIControlEventTouchUpInside];
     //位置按钮
     self.locationBtn.enabled = NO;
@@ -72,7 +85,6 @@
     [self.editBtn addTarget:self action:@selector(editBtn:) forControlEvents:UIControlEventTouchUpInside];
     //关闭按钮
     [self.closeBtn addTarget:self action:@selector(closeBtn:) forControlEvents:UIControlEventTouchUpInside];
-    
     
     //默认状态
     self.diaryContentTextView.editable = NO;

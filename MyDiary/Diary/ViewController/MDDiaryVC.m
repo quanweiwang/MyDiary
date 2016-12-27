@@ -39,9 +39,7 @@
 @property (strong, nonatomic) NSArray<NSString *> * moodArray;//心情数组
 @property (strong, nonatomic) NSString * weekday;//星期
 @property (strong, nonatomic) NSString * time;//时间
-@property (strong, nonatomic) NSString * country;//国家
-@property (strong, nonatomic) NSString * locality;//市
-@property (strong, nonatomic) NSString * subLocality;//区
+@property (strong, nonatomic) NSString * location;//位置
 @property (assign, nonatomic) NSInteger weatherIndex;//天气下标
 @property (assign, nonatomic) NSInteger moodIndex;//心情下标
 @end
@@ -98,7 +96,7 @@
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark 按钮点击事件
+#pragma mark - 按钮点击事件 -
 //天气按钮
 - (void) weatherBtn:(UIButton *)btn {
     
@@ -239,9 +237,7 @@
         diaryMdl.day = self.dayLabel.text;
         diaryMdl.time = self.time;
         diaryMdl.weekday = self.weekday;
-        diaryMdl.country = self.country;
-        diaryMdl.locality = self.locality;
-        diaryMdl.subLocality = self.subLocality;
+        diaryMdl.location = self.location == nil ? @"无位置" : self.location;
         diaryMdl.diaryTitle = self.diaryTitleTextField.text;
         diaryMdl.diaryContent = self.diaryContentTextView.text;
         diaryMdl.weather = self.weatherArray[self.weatherIndex];
@@ -281,7 +277,7 @@
     [self.picker dismissViewControllerAnimated:YES completion:nil];
 }
 
-#pragma mark 懒加载
+#pragma mark - 懒加载 -
 - (UIImagePickerController *)picker {
     
     if (_picker == nil) {
@@ -324,7 +320,7 @@
     return _weatherArray;
 }
 
-#pragma mark 定位相关
+#pragma mark - 定位相关 -
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
 {
     //停止定位
@@ -340,15 +336,9 @@
     [geocoder reverseGeocodeLocation:location completionHandler:^(NSArray<CLPlacemark *> * _Nullable placemarks, NSError * _Nullable error) {
         
         CLPlacemark * place = [placemarks lastObject];
-        
-        //国家
-        self.country = place.country;
-        //市
-        self.locality = place.locality;
-        //区
-        self.subLocality = place.subLocality;
-        
-        self.locationLabel.text = [NSString stringWithFormat:@"%@ %@ %@",self.country, self.locality,self.subLocality];
+       
+        self.locationLabel.text = [NSString stringWithFormat:@"%@ %@ %@",place.country, place.locality,place.subLocality];
+        self.location = self.locationLabel.text;
        
     }];
 }
@@ -360,7 +350,7 @@
     }
 }
 
-#pragma mark 日期相关
+#pragma mark - 日期相关 -
 //今天星期几
 - (NSString *)toDayInWeekday:(NSDate *)date{
     
@@ -400,7 +390,7 @@
     return [components day];
 }
 
-#pragma mark MDDiaryPickerDelegate 相关
+#pragma mark - MDDiaryPickerDelegate 相关 -
 - (void)diary_pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
     
     if (pickerView.tag == 1) {
